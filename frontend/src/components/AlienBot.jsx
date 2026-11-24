@@ -29,28 +29,93 @@ export default function AlienBot({
   // turns angry red on unwanted expenses
   const isAngry = isLatestUnwanted || isTopBossUnwanted;
 
-  // dialogue based on mood and current tab
-  const getDialogue = () => {
+  // page-specific quick instructions from Zog
+  const getInstructions = () => {
     if (isAngry) {
-      if (latestExpense?.emotional_state === 'impulsive') {
-        return `GAAAH! ${currency}${latestExpense.amount} on "${latestExpense.title}"?! That was an IMPULSE buy! Control your budget, human! 💢`;
-      }
-      return `ALERT! High emotional spending detected! Stop making impulse purchases! 💢`;
+      return {
+        title: '⚠️ IMPULSE SPEND ALERT',
+        badge: 'ACTION NEEDED',
+        badgeBg: 'var(--pixel-red)',
+        mainText: latestExpense?.emotional_state === 'impulsive'
+          ? `GAAAH! You spent ${currency}${latestExpense?.amount} on "${latestExpense?.title}" as an IMPULSE buy!`
+          : `ALERT! High emotional spending detected on recent purchases!`,
+        tips: [
+          'Pause Rule: Wait 24 to 48 hours before buying non-essentials.',
+          'Check Life-Hours: Ask yourself if this item is worth the work hours.',
+          'Identify Triggers: Notice if stress or boredom prompted the purchase.',
+        ],
+      };
     }
 
     switch (activeTab) {
       case 'dashboard':
-        return 'All green, Commander! Check your Treasury Balance vault above. Where to next?';
+        return {
+          title: 'DASHBOARD GUIDE',
+          badge: 'OVERVIEW',
+          badgeBg: '#588157',
+          mainText: 'Quick guide to your financial command center:',
+          tips: [
+            'Spendable Balance: Safe money left after upcoming recurring bills.',
+            'Available Balance: Click "✎ UPDATE BALANCE" to sync your bank funds.',
+            'Emotional Spend: See which feelings (Stress, Boredom) cost you most.',
+            'Life-Hours Simulator: Test potential big buys against working hours below.',
+          ],
+        };
       case 'expenses':
-        return 'Every expense logged tracks the real hours of work it cost you. Where to next?';
+        return {
+          title: 'EXPENSES GUIDE',
+          badge: 'TRACKING',
+          badgeBg: '#588157',
+          mainText: 'How to manage your personal expense ledger:',
+          tips: [
+            'Log Purchases: Click "+ LOG EXPENSE" to record any new transaction.',
+            'Tag Emotion: Always pick how you felt (Stressed, Hungry, Bored, etc.).',
+            'Life-Hours: Notice how many hours of work each purchase required.',
+            'Filter & Search: Use the search bar above to look up past logs.',
+          ],
+        };
       case 'subscriptions':
-        return 'Check your recurring subscriptions! Cancelling unused services saves real cash.';
+        return {
+          title: 'SUBSCRIPTIONS GUIDE',
+          badge: 'REGRET SLIDER',
+          badgeBg: '#588157',
+          mainText: 'How to monitor and eliminate recurring money drains:',
+          tips: [
+            'Add Services: Click "+ ADD SUBSCRIPTION" for streaming, apps, or gym.',
+            'Rate 1–10: Use the Regret Slider every month to rate its value.',
+            'Cancel Warning: Services rated < 4 for 2 months get flagged to cancel!',
+            'Recover Cash: Slaying unused subscriptions boosts your spendable money.',
+          ],
+        };
       case 'settings':
-        return 'Tuning your hourly wage updates all life-hours across the entire galaxy!';
+        return {
+          title: 'SETTINGS GUIDE',
+          badge: 'CONFIG',
+          badgeBg: '#588157',
+          mainText: 'Set your foundational financial baselines here:',
+          tips: [
+            'Hourly Rate: Set your net take-home pay to calculate real work-hours.',
+            'Starting Treasury: Set your initial liquid bank & wallet balance.',
+            'Currency Symbol: Choose your preferred currency (₹, $, €, £, etc.).',
+            'Clean Slate: Use the reset button at the bottom to start fresh anytime.',
+          ],
+        };
       default:
-        return 'I am Zog, your budget co-pilot! Welcome to We-Bucks! Click any button below to navigate.';
+        return {
+          title: 'BUDGET CO-PILOT',
+          badge: 'ZOG TIPS',
+          badgeBg: '#588157',
+          mainText: 'Welcome to We-Bucks! Quick tips for your financial journey:',
+          tips: [
+            'Dashboard: See your live spendable balance and emotional triggers.',
+            'Expenses: Log daily purchases with life-hours and emotion tags.',
+            'Subscriptions: Rate recurring bills with the 1-10 Regret Slider.',
+          ],
+        };
     }
   };
+
+  const info = getInstructions();
 
   // theme colors: angry red vs friendly green
   const alienMainColor = isAngry ? '#E63946' : '#588157';
@@ -75,7 +140,8 @@ export default function AlienBot({
         <div
           className="pixel-box mb-2 p-3"
           style={{
-            maxWidth: '300px',
+            width: '320px',
+            maxWidth: 'calc(100vw - 40px)',
             backgroundColor: isAngry ? '#FFF0F0' : '#FFFFFF',
             borderColor: isAngry ? '#E63946' : '#0E140F',
             boxShadow: isAngry ? '4px 4px 0px #A61C26' : '4px 4px 0px #0E140F',
@@ -87,79 +153,72 @@ export default function AlienBot({
               <span
                 className="pixel-badge"
                 style={{
-                  backgroundColor: isAngry ? '#E63946' : '#588157',
+                  backgroundColor: info.badgeBg,
                   color: '#FFFFFF',
                   fontSize: '0.52rem',
                 }}
               >
-                {isAngry ? '💢 ANGRY ALIEN (ALERT)' : '🛸 ZOG (NAVIGATOR)'}
+                {isAngry ? '💢 ZOG (ALERT)' : `🛸 ZOG (${info.badge})`}
               </span>
             </div>
             <button
               type="button"
               className="btn-pixel btn-pixel-light"
-              style={{ fontSize: '0.5rem', padding: '0.1rem 0.35rem' }}
+              style={{ fontSize: '0.55rem', padding: '0.1rem 0.35rem', lineHeight: '1' }}
               onClick={() => setIsOpen(false)}
+              aria-label="Close"
             >
-              _
+              ✕
             </button>
           </div>
 
-          {/* dialogue text */}
+          {/* Section Title */}
+          <div
+            className="pixel-font mb-1"
+            style={{
+              fontSize: '0.66rem',
+              color: isAngry ? 'var(--pixel-red)' : 'var(--pixel-black)',
+            }}
+          >
+            {info.title}
+          </div>
+
+          {/* Intro text */}
           <p
             className="mb-2"
             style={{
-              fontSize: '0.92rem',
-              color: isAngry ? '#900C3F' : '#2D3748',
-              lineHeight: '1.25',
-              fontWeight: isAngry ? 'bold' : 'normal',
+              fontSize: '1rem',
+              color: isAngry ? '#780000' : 'var(--pixel-black)',
+              lineHeight: '1.3',
+              fontFamily: 'var(--font-retro)',
             }}
           >
-            {getDialogue()}
+            {info.mainText}
           </p>
 
-          {/* teleport navigation buttons */}
+          {/* Page-Specific Quick Instructions */}
           <div className="border-top border-2 border-dark pt-2">
             <div
               className="pixel-font text-muted mb-1"
               style={{ fontSize: '0.52rem' }}
             >
-              TELEPORT TO:
+              WHAT TO DO ON THIS PAGE:
             </div>
-            <div className="d-flex flex-wrap gap-1">
-              <button
-                type="button"
-                className={`btn-pixel ${activeTab === 'dashboard' ? 'btn-pixel-primary' : 'btn-pixel-light'}`}
-                style={{ fontSize: '0.52rem', padding: '0.25rem 0.45rem' }}
-                onClick={() => setActiveTab('dashboard')}
-              >
-                📊 Dashboard
-              </button>
-              <button
-                type="button"
-                className={`btn-pixel ${activeTab === 'expenses' ? 'btn-pixel-primary' : 'btn-pixel-light'}`}
-                style={{ fontSize: '0.52rem', padding: '0.25rem 0.45rem' }}
-                onClick={() => setActiveTab('expenses')}
-              >
-                💸 Expenses
-              </button>
-              <button
-                type="button"
-                className={`btn-pixel ${activeTab === 'subscriptions' ? 'btn-pixel-primary' : 'btn-pixel-light'}`}
-                style={{ fontSize: '0.52rem', padding: '0.25rem 0.45rem' }}
-                onClick={() => setActiveTab('subscriptions')}
-              >
-                🔄 Subs
-              </button>
-              <button
-                type="button"
-                className={`btn-pixel ${activeTab === 'settings' ? 'btn-pixel-primary' : 'btn-pixel-light'}`}
-                style={{ fontSize: '0.52rem', padding: '0.25rem 0.45rem' }}
-                onClick={() => setActiveTab('settings')}
-              >
-                ⚙️ Settings
-              </button>
-            </div>
+            <ul
+              className="list-unstyled mb-0 d-flex flex-column gap-1"
+              style={{
+                fontSize: '1.05rem',
+                fontFamily: 'var(--font-retro)',
+                lineHeight: '1.3',
+              }}
+            >
+              {info.tips.map((tip, idx) => (
+                <li key={idx} className="d-flex align-items-start gap-1">
+                  <span style={{ color: isAngry ? 'var(--pixel-red)' : 'var(--pixel-black)', fontWeight: 'bold' }}>▸</span>
+                  <span style={{ color: 'var(--pixel-black)' }}>{tip}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}
