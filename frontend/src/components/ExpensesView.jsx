@@ -129,7 +129,7 @@ export default function ExpensesView({
             EXPENSE LEDGER
           </h4>
           <div style={{ fontSize: '1.05rem', color: 'var(--olive-light)' }}>
-            Every purchase tagged by emotional trigger and life-hours worked (+50 XP per entry).
+            Track what you buy, how you felt, and the hours of work it cost you (+50 XP).
           </div>
         </div>
 

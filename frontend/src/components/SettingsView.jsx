@@ -57,13 +57,13 @@ export default function SettingsView({ settings, onSave, onAddXp }) {
           LIFE-RATE FORGE
         </h4>
         <div style={{ fontSize: '1.05rem', color: 'var(--olive-light)' }}>
-          Configure your net take-home rate to power the Time-to-Earn life-hour converter.
+          Set your hourly take-home pay to see how many hours of work your purchases actually cost.
         </div>
       </div>
 
       {saved && (
         <div className="pixel-box-sage p-2 px-3 mb-3 pixel-font" style={{ fontSize: '0.65rem' }}>
-          ✓ STATS SAVED! LIFE-RATE SYNCHRONIZED (+50 XP).
+          ✓ SAVED! YOUR HOURLY RATE HAS BEEN UPDATED (+50 XP).
         </div>
       )}
 

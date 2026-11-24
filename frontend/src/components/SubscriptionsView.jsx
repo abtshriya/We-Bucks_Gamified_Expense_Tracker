@@ -115,7 +115,7 @@ export default function SubscriptionsView({
             RECURRING INVENTORY
           </h4>
           <div style={{ fontSize: '1.05rem', color: 'var(--olive-light)' }}>
-            Rate monthly item value. Items rated under 4 for 2 consecutive months become Cursed!
+            Rate your subscriptions 1–10. If you regret paying for 2 months in a row, it's time to cancel!
           </div>
         </div>
 
