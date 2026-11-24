@@ -36,7 +36,7 @@ export default function Navbar({ activeTab, setActiveTab, settings, xp = 350, le
               WE-BUCKS
             </div>
             <div className="pixel-font" style={{ fontSize: '0.52rem', color: 'var(--sage-dark)' }}>
-              GAMIFIED EXPENSE TRACKER
+              YOUR PERSONAL EXPENSE TRACKER
             </div>
           </div>
         </div>
