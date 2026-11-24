@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../assets/logo.png';
+import { PixelCoin } from './PixelCoinBurst';
 
 // top navigation and player level bar
 export default function Navbar({ activeTab, setActiveTab, settings, xp = 350, level = 3 }) {
@@ -61,8 +62,9 @@ export default function Navbar({ activeTab, setActiveTab, settings, xp = 350, le
         {/* player level and hourly rate shortcut */}
         <div className="d-flex align-items-center gap-3">
           <div className="d-none d-lg-block text-end">
-            <div className="pixel-font" style={{ fontSize: '0.58rem', color: 'var(--olive)' }}>
-              LVL {level} SAVER · {xpCurrent}/100 XP
+            <div className="pixel-font d-flex align-items-center justify-content-end gap-1" style={{ fontSize: '0.58rem', color: 'var(--olive)' }}>
+              <span className="pixel-coin-spin"><PixelCoin size={12} /></span>
+              <span>LVL {level} SAVER · {xpCurrent}/100 XP</span>
             </div>
             <div className="pixel-bar-container mt-1" style={{ width: '110px', height: '10px' }}>
               <div className="pixel-bar-fill-xp" style={{ width: `${xpPercent}%` }} />

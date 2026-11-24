@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TimeToEarnBadge from './TimeToEarnBadge';
 import EmotionTag from './EmotionTag';
+import { PixelCoin, PixelCash } from './PixelCoinBurst';
 
 // main dashboard view with vault, stats and boss damage
 export default function DashboardView({
@@ -108,8 +109,9 @@ export default function DashboardView({
                 Your total bank and cash money right now.
               </div>
               <div className="d-flex justify-content-between align-items-center">
-                <div className="pixel-font text-muted" style={{ fontSize: '0.62rem' }}>
-                  AVAILABLE BALANCE
+                <div className="pixel-font text-muted d-flex align-items-center gap-1" style={{ fontSize: '0.62rem' }}>
+                  <span className="pixel-coin-spin"><PixelCoin size={14} /></span>
+                  <span>AVAILABLE BALANCE</span>
                 </div>
                 <span className="pixel-help-badge" title="Hover for info">?</span>
               </div>
@@ -158,8 +160,9 @@ export default function DashboardView({
                 Guilt-free money you can safely spend after covering bills.
               </div>
               <div className="d-flex justify-content-between align-items-center">
-                <div className="pixel-font" style={{ fontSize: '0.62rem', color: '#fff' }}>
-                  SPENDABLE BALANCE
+                <div className="pixel-font d-flex align-items-center gap-1" style={{ fontSize: '0.62rem', color: '#fff' }}>
+                  <PixelCash width={18} height={11} />
+                  <span>SPENDABLE BALANCE</span>
                 </div>
                 <span className="pixel-badge" style={{ backgroundColor: 'var(--sage-light)', color: 'var(--pixel-black)', fontSize: '0.5rem' }}>
                   SAFE TO SPEND

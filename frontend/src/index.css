@@ -398,3 +398,52 @@ h6 { font-size: 0.72rem; }
   color: var(--pixel-black);
   cursor: help;
 }
+
+/* Pixel Coin & Cash Animations */
+@keyframes pixel-coin-float {
+  0% {
+    transform: translateY(10px) scale(0.6) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(-25px) scale(1.15) rotate(-6deg);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-60px) scale(1) rotate(6deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scale(0.7) rotate(0deg);
+  }
+}
+
+@keyframes pixel-pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pixel-coin-spin {
+  0% { transform: scaleX(1); }
+  50% { transform: scaleX(0.2); }
+  100% { transform: scaleX(1); }
+}
+
+.pixel-coin-float {
+  animation: pixel-coin-float 1.4s ease-out forwards;
+}
+
+.pixel-coin-spin {
+  display: inline-block;
+  animation: pixel-coin-spin 1.8s infinite ease-in-out;
+}

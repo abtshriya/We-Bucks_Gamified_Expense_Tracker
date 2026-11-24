@@ -5,6 +5,7 @@ import ExpensesView from './components/ExpensesView';
 import SubscriptionsView from './components/SubscriptionsView';
 import SettingsView from './components/SettingsView';
 import AlienBot from './components/AlienBot';
+import PixelCoinBurst from './components/PixelCoinBurst';
 import {
   getSettings,
   updateSettings,
@@ -36,6 +37,16 @@ export default function App() {
     return saved ? parseInt(saved, 10) : 250;
   });
   const [xpToast, setXpToast] = useState(null);
+
+  // floating coin burst animation state
+  const [coinBurst, setCoinBurst] = useState({ show: false, message: '' });
+
+  const triggerCoinBurst = (message) => {
+    setCoinBurst({ show: true, message });
+    setTimeout(() => {
+      setCoinBurst({ show: false, message: '' });
+    }, 1500);
+  };
 
   // level up every 100 xp
   const level = Math.floor(xp / 100) + 1;
@@ -83,11 +94,13 @@ export default function App() {
     await createExpense(data);
     await loadData();
     handleAddXp(50);
+    triggerCoinBurst('+50 XP · EXPENSE LOGGED!');
   };
 
   const handleUpdateExpense = async (id, data) => {
     await updateExpense(id, data);
     await loadData();
+    triggerCoinBurst('EXPENSE UPDATED!');
   };
 
   const handleDeleteExpense = async (id) => {
@@ -100,11 +113,15 @@ export default function App() {
     await createSubscription(data);
     await loadData();
     handleAddXp(50);
+    triggerCoinBurst('+50 XP · SERVICE ADDED!');
   };
 
   const handleUpdateSubscription = async (id, data) => {
     await updateSubscription(id, data);
     await loadData();
+    if (data.is_active === false) {
+      triggerCoinBurst('+100 XP · CURSE SLAIN!');
+    }
   };
 
   const handleDeleteSubscription = async (id) => {
@@ -116,6 +133,7 @@ export default function App() {
     await rateSubscription(id, ratingData);
     await loadData();
     handleAddXp(25);
+    triggerCoinBurst('+25 XP · APPRAISED!');
   };
 
   // user settings handler
@@ -123,6 +141,7 @@ export default function App() {
     await updateSettings(data);
     await loadData();
     handleAddXp(50);
+    triggerCoinBurst('+50 XP · FORGED!');
   };
 
   return (
@@ -138,6 +157,9 @@ export default function App() {
           </span>
         </div>
       )}
+
+      {/* floating pixel coin and cash burst animation */}
+      <PixelCoinBurst show={coinBurst.show} message={coinBurst.message} />
 
       {/* top navbar with level and stats */}
       <Navbar
