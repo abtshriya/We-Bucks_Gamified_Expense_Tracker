@@ -14,7 +14,8 @@
 
   --pixel-black: #0E140F;
   --pixel-white: #FFFFFF;
-  --pixel-bg: #EEF4EF;
+  --pixel-bg: #8BA890;
+  --sage-soft: #DDE8DF;
   --card-bg: #FFFFFF;
 
   --pixel-red: #C54238;
@@ -41,8 +42,8 @@ body {
   line-height: 1.4;
   letter-spacing: 0.02em;
   background-image: 
-    linear-gradient(rgba(139, 168, 144, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 168, 144, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(37, 51, 35, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 51, 35, 0.12) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
