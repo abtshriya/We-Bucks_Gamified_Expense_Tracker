@@ -42,6 +42,9 @@ class ResetDefaultsView(APIView):
         Subscription.objects.all().delete()
 
         profile = UserProfile.get_settings()
+        profile.user_name = "Saver"
+        profile.monthly_salary = Decimal('0.00')
+        profile.other_income = Decimal('0.00')
         profile.net_hourly_wage = Decimal('600.00')
         profile.currency_symbol = '₹'
         profile.available_balance = Decimal('50000.00')
@@ -267,6 +270,10 @@ class DashboardSummaryView(APIView):
         spendable_hours = round(spendable_balance / hourly_wage, 1) if hourly_wage > 0 else 0.0
 
         return Response({
+            'user_name': profile.user_name,
+            'monthly_salary': float(profile.monthly_salary),
+            'other_income': float(profile.other_income),
+            'total_monthly_income': profile.total_monthly_income,
             'currency_symbol': profile.currency_symbol,
             'net_hourly_wage': hourly_wage,
             'available_balance': round(available_balance, 2),

@@ -4,11 +4,36 @@ from .models import UserProfile, Expense, Subscription, SubscriptionRating
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    # serializer for hourly wage and available balance
+    # serializer for user profile, income sources, hourly wage and balance
+    total_monthly_income = serializers.SerializerMethodField()
+
     class Meta:
         model = UserProfile
-        fields = ['id', 'net_hourly_wage', 'currency_symbol', 'available_balance', 'updated_at']
-        read_only_fields = ['id', 'updated_at']
+        fields = [
+            'id',
+            'user_name',
+            'monthly_salary',
+            'other_income',
+            'total_monthly_income',
+            'net_hourly_wage',
+            'currency_symbol',
+            'available_balance',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'updated_at', 'total_monthly_income']
+
+    def get_total_monthly_income(self, obj):
+        return obj.total_monthly_income
+
+    def validate_monthly_salary(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Monthly salary cannot be negative.")
+        return value
+
+    def validate_other_income(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Other income cannot be negative.")
+        return value
 
     def validate_net_hourly_wage(self, value):
         if value <= 0:

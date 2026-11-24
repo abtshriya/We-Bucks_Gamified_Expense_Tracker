@@ -77,10 +77,10 @@ export default function DashboardView({
       <div className="pixel-box mb-4">
         <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom border-2 border-dark pb-2 mb-3">
           <div className="d-flex align-items-center gap-2">
-            <span className="pixel-font" style={{ fontSize: '0.85rem', color: 'var(--olive)' }}>
-              TREASURY BALANCE VAULT
+            <span className="pixel-font" style={{ fontSize: '0.85rem', color: 'var(--pixel-black)' }}>
+              {settings?.user_name ? `${settings.user_name.toUpperCase()}'S TREASURY VAULT` : 'TREASURY BALANCE VAULT'}
             </span>
-            <span className="pixel-badge" style={{ backgroundColor: 'var(--sage-soft)', color: 'var(--olive)' }}>
+            <span className="pixel-badge" style={{ backgroundColor: 'var(--sage-soft)', color: 'var(--pixel-black)' }}>
               LIVE LEDGER
             </span>
           </div>
@@ -96,6 +96,21 @@ export default function DashboardView({
             ✎ UPDATE BALANCE
           </button>
         </div>
+
+        {/* Monthly Inflow Banner (Salary & Other Incomes) */}
+        {(parseFloat(settings?.monthly_salary) > 0 || parseFloat(settings?.other_income) > 0) && (
+          <div className="p-2 px-3 border border-2 border-dark mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2" style={{ backgroundColor: 'var(--pixel-gold-bg)' }}>
+            <div className="d-flex align-items-center gap-2">
+              <span className="pixel-font" style={{ fontSize: '0.62rem', color: '#826315' }}>MONTHLY INFLOW:</span>
+              <span className="fw-bold fs-6" style={{ color: '#826315' }}>
+                {currency}{(parseFloat(settings?.monthly_salary || 0) + parseFloat(settings?.other_income || 0)).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo
+              </span>
+            </div>
+            <div className="text-secondary" style={{ fontSize: '0.9rem' }}>
+              Salary: {currency}{parseFloat(settings?.monthly_salary || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })} &bull; Other: {currency}{parseFloat(settings?.other_income || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+            </div>
+          </div>
+        )}
 
         <div className="row g-3 align-items-stretch">
           {/* 1. AVAILABLE BALANCE */}

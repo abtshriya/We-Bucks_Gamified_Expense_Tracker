@@ -5,7 +5,22 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
-    # user settings: hourly rate, currency symbol, and bank balance
+    # user profile: name, income sources, hourly rate, currency symbol, and bank balance
+    user_name = models.CharField(max_length=80, default="Saver", blank=True)
+    monthly_salary = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=Decimal('0.00'),
+        validators=[MinValueValidator(Decimal('0.00'))],
+        help_text="Primary monthly take-home salary"
+    )
+    other_income = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=Decimal('0.00'),
+        validators=[MinValueValidator(Decimal('0.00'))],
+        help_text="Other monthly incomes (freelance, investments, side hustle)"
+    )
     net_hourly_wage = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -22,6 +37,10 @@ class UserProfile(models.Model):
         help_text="Total available balance"
     )
     updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def total_monthly_income(self):
+        return round(float(self.monthly_salary) + float(self.other_income), 2)
 
     @classmethod
     def get_settings(cls):

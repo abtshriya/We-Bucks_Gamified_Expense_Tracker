@@ -16,20 +16,36 @@ class UserSettingsAPITests(APITestCase):
         # check default wage and balance
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['user_name'], 'Saver')
+        self.assertEqual(float(response.data['monthly_salary']), 0.00)
+        self.assertEqual(float(response.data['other_income']), 0.00)
         self.assertEqual(float(response.data['net_hourly_wage']), 600.00)
         self.assertEqual(response.data['currency_symbol'], '₹')
         self.assertEqual(float(response.data['available_balance']), 50000.00)
 
     def test_update_settings_success(self):
-        # update hourly rate and currency
-        payload = {'net_hourly_wage': 40.00, 'currency_symbol': '€'}
+        # update name, income, hourly rate and currency
+        payload = {
+            'user_name': 'Shriya',
+            'monthly_salary': 75000.00,
+            'other_income': 15000.00,
+            'net_hourly_wage': 40.00,
+            'currency_symbol': '€'
+        }
         response = self.client.put(self.url, data=payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['user_name'], 'Shriya')
+        self.assertEqual(float(response.data['monthly_salary']), 75000.00)
+        self.assertEqual(float(response.data['other_income']), 15000.00)
+        self.assertEqual(float(response.data['total_monthly_income']), 90000.00)
         self.assertEqual(float(response.data['net_hourly_wage']), 40.00)
         self.assertEqual(response.data['currency_symbol'], '€')
 
         # check db persistence
         profile = UserProfile.get_settings()
+        self.assertEqual(profile.user_name, 'Shriya')
+        self.assertEqual(profile.monthly_salary, Decimal('75000.00'))
+        self.assertEqual(profile.other_income, Decimal('15000.00'))
         self.assertEqual(profile.net_hourly_wage, Decimal('40.00'))
 
     def test_update_settings_invalid_wage(self):

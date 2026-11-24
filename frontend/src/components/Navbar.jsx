@@ -78,7 +78,7 @@ export default function Navbar({ activeTab, setActiveTab, settings, summary, xp 
 
           <div className="d-none d-lg-block text-end">
             <div className="pixel-font d-flex align-items-center justify-content-end gap-1" style={{ fontSize: '0.58rem', color: 'var(--pixel-black)' }}>
-              <span>LVL {level} SAVER · {xpCurrent}/100 XP</span>
+              <span>{settings?.user_name ? `${settings.user_name.toUpperCase()} · ` : ''}LVL {level} · {xpCurrent}/100 XP</span>
             </div>
             <div className="pixel-bar-container mt-1" style={{ width: '90px', height: '10px' }}>
               <div className="pixel-bar-fill-xp" style={{ width: `${xpPercent}%` }} />

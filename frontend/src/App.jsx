@@ -264,6 +264,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         expenses={expenses}
         summary={summary}
+        settings={settings}
         currency={settings?.currency_symbol || '₹'}
       />
 

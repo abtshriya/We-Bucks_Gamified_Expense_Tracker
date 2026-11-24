@@ -6,10 +6,14 @@ export default function AlienBot({
   setActiveTab,
   expenses = [],
   summary,
+  settings,
   currency = '₹',
 }) {
   // toggle speech bubble
   const [isOpen, setIsOpen] = useState(true);
+
+  // user display name
+  const displayName = settings?.user_name || 'Saver';
 
   // check if recent spend or top boss is an impulse purchase
   const latestExpense = expenses && expenses.length > 0 ? expenses[0] : null;
@@ -53,7 +57,7 @@ export default function AlienBot({
           title: 'DASHBOARD GUIDE',
           badge: 'OVERVIEW',
           badgeBg: '#588157',
-          mainText: 'Quick guide to your financial command center:',
+          mainText: `Welcome back, ${displayName}! Quick guide to your financial hub:`,
           tips: [
             'Spendable Balance: Safe money left after upcoming recurring bills.',
             'Available Balance: Click "✎ UPDATE BALANCE" to sync your bank funds.',

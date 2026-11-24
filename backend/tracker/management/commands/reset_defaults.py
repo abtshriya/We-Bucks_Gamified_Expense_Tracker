@@ -16,6 +16,9 @@ class Command(BaseCommand):
 
         # 3. Reset user settings to fresh defaults
         profile = UserProfile.get_settings()
+        profile.user_name = "Saver"
+        profile.monthly_salary = Decimal('0.00')
+        profile.other_income = Decimal('0.00')
         profile.net_hourly_wage = Decimal('600.00')
         profile.currency_symbol = '₹'
         profile.available_balance = Decimal('50000.00')

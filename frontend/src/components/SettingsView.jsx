@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-// user settings for hourly wage and available balance
+// user settings for profile, monthly salary, other incomes, hourly wage and balance
 export default function SettingsView({ settings, onSave, onResetDefaults, onAddXp }) {
+  const [userName, setUserName] = useState('Saver');
+  const [salary, setSalary] = useState('0.00');
+  const [otherIncome, setOtherIncome] = useState('0.00');
   const [wage, setWage] = useState('600.00');
   const [currency, setCurrency] = useState('₹');
   const [balance, setBalance] = useState('50000.00');
@@ -10,14 +13,30 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
 
   useEffect(() => {
     if (settings) {
+      setUserName(settings.user_name || 'Saver');
+      setSalary(settings.monthly_salary !== undefined ? settings.monthly_salary.toString() : '0.00');
+      setOtherIncome(settings.other_income !== undefined ? settings.other_income.toString() : '0.00');
       setWage(settings.net_hourly_wage?.toString() || '600.00');
       setCurrency(settings.currency_symbol || '₹');
       setBalance(settings.available_balance?.toString() || '50000.00');
     }
   }, [settings]);
 
+  const numericSalary = parseFloat(salary) || 0;
+  const numericOther = parseFloat(otherIncome) || 0;
+  const totalMonthlyIncome = numericSalary + numericOther;
   const numericWage = parseFloat(wage) || 1;
   const numericBalance = parseFloat(balance) || 0;
+
+  const handleAutoCalcWage = () => {
+    if (totalMonthlyIncome <= 0) {
+      alert('Please enter a monthly salary or other income amount first.');
+      return;
+    }
+    // standard 160 working hours per month (40h/week * 4 weeks)
+    const calculatedHourly = (totalMonthlyIncome / 160).toFixed(2);
+    setWage(calculatedHourly);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +54,9 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
 
     try {
       await onSave({
+        user_name: userName.trim() || 'Saver',
+        monthly_salary: numericSalary,
+        other_income: numericOther,
         net_hourly_wage: numericWage,
         currency_symbol: currency,
         available_balance: numericBalance,
@@ -54,21 +76,121 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
     <div className="container py-4" style={{ maxWidth: '720px' }}>
       <div className="page-header-card">
         <h4 className="page-title">
-          HOURLY WAGE SETTINGS
+          PROFILE &amp; FINANCIAL SETTINGS
         </h4>
         <div className="page-subtitle">
-          Set your hourly take-home pay to see how many hours of work your purchases actually cost.
+          Customize your name, monthly salary, side incomes, and hourly wage to power your expense tracker.
         </div>
       </div>
 
       {saved && (
         <div className="pixel-box-sage p-2 px-3 mb-3 pixel-font" style={{ fontSize: '0.65rem' }}>
-          ✓ SAVED! YOUR HOURLY RATE HAS BEEN UPDATED.
+          ✓ SAVED! YOUR PROFILE AND FINANCIAL RATES HAVE BEEN UPDATED.
         </div>
       )}
 
       <div className="pixel-box p-3 p-md-4 mb-4">
         <form onSubmit={handleSubmit}>
+          {/* SECTION 1: USER PROFILE & INCOME SOURCES */}
+          <div className="border-bottom border-2 border-dark pb-3 mb-3">
+            <h6 className="pixel-font mb-3" style={{ color: 'var(--pixel-black)' }}>
+              1. USER PROFILE &amp; MONTHLY INFLOWS
+            </h6>
+
+            {/* User Name */}
+            <div className="mb-3">
+              <label className="pixel-font small d-block mb-1" style={{ fontSize: '0.62rem' }}>
+                YOUR NAME / DISPLAY NAME
+              </label>
+              <input
+                type="text"
+                maxLength="80"
+                className="form-control fw-bold"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="e.g. Shriya"
+              />
+              <div className="text-muted mt-1" style={{ fontSize: '0.95rem' }}>
+                Used to personalize your Treasury Vault and budget navigator.
+              </div>
+            </div>
+
+            {/* Income Streams Row */}
+            <div className="row g-3 mb-2">
+              <div className="col-12 col-md-6">
+                <label className="pixel-font small d-block mb-1" style={{ fontSize: '0.62rem' }}>
+                  MONTHLY SALARY (TAKE-HOME)
+                </label>
+                <div className="input-group">
+                  <span className="input-group-text bg-white border-2 border-dark fw-bold">{currency}</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0.00"
+                    className="form-control fw-bold fs-5"
+                    value={salary}
+                    onChange={(e) => setSalary(e.target.value)}
+                    placeholder="0.00"
+                  />
+                  <span className="input-group-text bg-white border-2 border-dark" style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.55rem' }}>
+                    /MO
+                  </span>
+                </div>
+                <div className="text-secondary mt-1" style={{ fontSize: '0.88rem' }}>
+                  Primary monthly take-home salary after taxes.
+                </div>
+              </div>
+
+              <div className="col-12 col-md-6">
+                <label className="pixel-font small d-block mb-1" style={{ fontSize: '0.62rem' }}>
+                  OTHER MONTHLY INCOMES
+                </label>
+                <div className="input-group">
+                  <span className="input-group-text bg-white border-2 border-dark fw-bold">{currency}</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0.00"
+                    className="form-control fw-bold fs-5"
+                    value={otherIncome}
+                    onChange={(e) => setOtherIncome(e.target.value)}
+                    placeholder="0.00"
+                  />
+                  <span className="input-group-text bg-white border-2 border-dark" style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.55rem' }}>
+                    /MO
+                  </span>
+                </div>
+                <div className="text-secondary mt-1" style={{ fontSize: '0.88rem' }}>
+                  Freelance, investments, rentals, or side hustles.
+                </div>
+              </div>
+            </div>
+
+            {/* Inflow Summary & Auto-calc */}
+            <div className="p-2 px-3 border border-2 border-dark mt-3 d-flex flex-wrap justify-content-between align-items-center gap-2" style={{ backgroundColor: 'var(--sage-soft)' }}>
+              <div>
+                <span className="pixel-font" style={{ fontSize: '0.58rem' }}>TOTAL MONTHLY INFLOW:</span>
+                <span className="fw-bold fs-5 ms-2">
+                  {currency}{totalMonthlyIncome.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo
+                </span>
+              </div>
+              <button
+                type="button"
+                className="btn-pixel btn-pixel-secondary"
+                style={{ fontSize: '0.55rem' }}
+                onClick={handleAutoCalcWage}
+                data-tooltip="Auto-calculates hourly rate assuming standard 160 hours/month"
+              >
+                ⚡ AUTO-CALCULATE HOURLY WAGE
+              </button>
+            </div>
+          </div>
+
+          {/* SECTION 2: HOURLY RATE & TREASURY */}
+          <h6 className="pixel-font mb-3" style={{ color: 'var(--pixel-black)' }}>
+            2. HOURLY RATE &amp; TREASURY SETTINGS
+          </h6>
+
           <div className="row g-3 mb-3">
             <div className="col-12 col-md-8">
               <label className="pixel-font small d-block mb-1" style={{ fontSize: '0.62rem' }}>
@@ -91,7 +213,7 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
                 </span>
               </div>
               <div className="text-muted mt-1" style={{ fontSize: '0.95rem' }}>
-                Calculated by dividing your monthly take-home salary by ~160 working hours.
+                Converts prices into working life-hours across your ledger.
               </div>
             </div>
 
@@ -132,7 +254,7 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
                 />
               </div>
               <div className="text-muted mt-1" style={{ fontSize: '0.95rem' }}>
-                Your current liquid cash and bank balance, used to compute guilt-free spendable balance.
+                Your current liquid cash and bank balance, dynamically updated on expenses.
               </div>
             </div>
           </div>
