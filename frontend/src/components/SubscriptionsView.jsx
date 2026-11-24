@@ -273,7 +273,7 @@ export default function SubscriptionsView({
                                 color: isLow ? 'var(--pixel-red)' : 'var(--olive)',
                                 borderColor: isLow ? 'var(--pixel-red)' : 'var(--pixel-black)',
                               }}
-                              title={r.notes || `${r.rating_month}: ${r.value_score}/10`}
+                              data-tooltip={r.notes || `${r.rating_month} score: ${r.value_score} out of 10`}
                             >
                               {r.rating_month}: {r.value_score}/10
                             </span>

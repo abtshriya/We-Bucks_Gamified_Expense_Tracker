@@ -12,7 +12,10 @@ export default function TimeToEarnBadge({ amount, hours, hourlyWage, currency = 
   }
 
   return (
-    <span className="time-pill-pixel" title={`${currency}${numericAmount.toFixed(2)} = ${formattedHours} hours of your working life`}>
+    <span
+      className="time-pill-pixel"
+      data-tooltip={`${currency}${numericAmount.toFixed(2)} took ${formattedHours}h of work to pay for.`}
+    >
       <span>{currency}{numericAmount.toFixed(2)}</span>
       <span className="text-muted">|</span>
       <span className="work-hrs">{formattedHours}h</span>

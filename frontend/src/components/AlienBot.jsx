@@ -100,7 +100,6 @@ export default function AlienBot({
               className="btn-pixel btn-pixel-light"
               style={{ fontSize: '0.5rem', padding: '0.1rem 0.35rem' }}
               onClick={() => setIsOpen(false)}
-              title="Minimize"
             >
               _
             </button>
@@ -180,7 +179,7 @@ export default function AlienBot({
           userSelect: 'none',
           transition: 'transform 0.1s ease',
         }}
-        title={isOpen ? 'Click to hide dialogue' : 'Click to open alien navigator'}
+        data-tooltip={isOpen ? 'Click to minimize Zog' : 'Click to ask Zog for tips'}
       >
         {/* 16x16 pixel alien sprite */}
         <svg

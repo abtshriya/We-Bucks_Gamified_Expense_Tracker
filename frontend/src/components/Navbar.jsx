@@ -74,7 +74,8 @@ export default function Navbar({ activeTab, setActiveTab, settings, xp = 350, le
           <button
             type="button"
             className="btn-pixel btn-pixel-secondary"
-            title="Configure Hourly Life Rate"
+            data-tooltip-pos="bottom"
+            data-tooltip={`Your hourly rate: ${currency}${wage}/hr`}
             onClick={() => setActiveTab('settings')}
           >
             RATE: {currency}{wage}/H

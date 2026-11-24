@@ -103,17 +103,13 @@ export default function DashboardView({
             <div
               className="p-3 border border-2 border-dark h-100 pixel-stat-card"
               style={{ backgroundColor: 'var(--sage-soft)' }}
-              title="Your total bank and cash money right now."
+              data-tooltip="Total money in your bank and wallet right now."
             >
-              <div className="pixel-card-tooltip">
-                Your total bank and cash money right now.
-              </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="pixel-font text-muted d-flex align-items-center gap-1" style={{ fontSize: '0.62rem' }}>
                   <span className="pixel-coin-spin"><PixelCoin size={14} /></span>
                   <span>AVAILABLE BALANCE</span>
                 </div>
-                <span className="pixel-help-badge" title="Hover for info">?</span>
               </div>
               <div className="display-6 fw-bold mt-2 mb-1" style={{ fontFamily: 'var(--font-retro)' }}>
                 {currency}{availableBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -129,16 +125,12 @@ export default function DashboardView({
             <div
               className="p-3 border border-2 border-dark h-100 pixel-stat-card"
               style={{ backgroundColor: 'var(--pixel-gold-bg)' }}
-              title="Money set aside for upcoming monthly bills and subscriptions."
+              data-tooltip="Money reserved for your upcoming monthly subscriptions."
             >
-              <div className="pixel-card-tooltip">
-                Money set aside for upcoming monthly bills and subscriptions.
-              </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="pixel-font text-muted" style={{ fontSize: '0.62rem' }}>
                   YET TO PAY
                 </div>
-                <span className="pixel-help-badge" title="Hover for info">?</span>
               </div>
               <div className="display-6 fw-bold mt-2 mb-1" style={{ color: '#826315', fontFamily: 'var(--font-retro)' }}>
                 {currency}{yetToPay.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -154,11 +146,8 @@ export default function DashboardView({
             <div
               className="pixel-box-olive p-3 h-100 pixel-stat-card"
               style={{ border: '2px solid var(--pixel-black)' }}
-              title="Guilt-free money you can safely spend after covering bills."
+              data-tooltip="Safe money you can freely spend without falling short on bills."
             >
-              <div className="pixel-card-tooltip">
-                Guilt-free money you can safely spend after covering bills.
-              </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="pixel-font d-flex align-items-center gap-1" style={{ fontSize: '0.62rem', color: '#fff' }}>
                   <PixelCash width={18} height={11} />
@@ -300,16 +289,12 @@ export default function DashboardView({
         <div className="col-12 col-sm-6 col-lg-3">
           <div
             className="pixel-box pixel-stat-card h-100"
-            title="Total money you've spent so far, including this month."
+            data-tooltip="Total money you have spent so far."
           >
-            <div className="pixel-card-tooltip">
-              Total money you've spent so far, including this month.
-            </div>
             <div className="d-flex justify-content-between align-items-center">
               <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--olive)' }}>
                 TREASURY SPENT
               </div>
-              <span className="pixel-help-badge" title="Hover for info">?</span>
             </div>
             <div className="display-6 fw-bold mt-2 mb-1" style={{ fontFamily: 'var(--font-retro)' }}>
               {currency}{totalSpend.toFixed(2)}
@@ -325,16 +310,12 @@ export default function DashboardView({
           <div
             className="pixel-box pixel-stat-card h-100"
             style={{ borderLeft: '8px solid var(--olive)' }}
-            title="Hours of work it took to pay for everything you bought."
+            data-tooltip="Hours of work it took to pay for what you bought."
           >
-            <div className="pixel-card-tooltip">
-              Hours of work it took to pay for everything you bought.
-            </div>
             <div className="d-flex justify-content-between align-items-center">
               <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--olive)' }}>
                 LIFE HOURS LOST
               </div>
-              <span className="pixel-help-badge" title="Hover for info">?</span>
             </div>
             <div className="display-6 fw-bold mt-2 mb-1" style={{ color: 'var(--olive)', fontFamily: 'var(--font-retro)' }}>
               {totalHours} HRS
@@ -349,16 +330,12 @@ export default function DashboardView({
         <div className="col-12 col-sm-6 col-lg-3">
           <div
             className="pixel-box pixel-stat-card h-100"
-            title="The mood or feeling that triggered the most spending."
+            data-tooltip="The mood that caused you to spend the most money."
           >
-            <div className="pixel-card-tooltip">
-              The mood or feeling that triggered the most spending.
-            </div>
             <div className="d-flex justify-content-between align-items-center">
               <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--olive)' }}>
                 TOP SPEND BOSS
               </div>
-              <span className="pixel-help-badge" title="Hover for info">?</span>
             </div>
             <div className="mt-2 mb-1">
               {topEmotion ? (
@@ -377,16 +354,12 @@ export default function DashboardView({
         <div className="col-12 col-sm-6 col-lg-3">
           <div
             className="pixel-box pixel-stat-card h-100"
-            title="Subscriptions you barely use — cancel them to save money."
+            data-tooltip="Subscriptions you rarely use — cancel them to save cash."
           >
-            <div className="pixel-card-tooltip">
-              Subscriptions you barely use — cancel them to save money.
-            </div>
             <div className="d-flex justify-content-between align-items-center">
               <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--olive)' }}>
                 CURSED SERVICES
               </div>
-              <span className="pixel-help-badge" title="Hover for info">?</span>
             </div>
             <div className={`display-6 fw-bold mt-2 mb-1 ${flaggedSubs.length > 0 ? 'text-danger' : 'text-dark'}`} style={{ fontFamily: 'var(--font-retro)' }}>
               {flaggedSubs.length}

@@ -338,65 +338,87 @@ h6 { font-size: 0.72rem; }
 /* ============================================================
    PIXEL STAT CARD TOOLTIPS (Simple Humanized Explanations)
    ============================================================ */
+/* ============================================================
+   SINGLE UNIFIED PIXEL TOOLTIP SYSTEM FOR THE ENTIRE APP
+   Only one tooltip style throughout the whole application.
+   ============================================================ */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: var(--pixel-white);
+  color: var(--pixel-black);
+  border: 2px solid var(--pixel-black);
+  box-shadow: 3px 3px 0px var(--pixel-black);
+  padding: 0.35rem 0.65rem;
+  font-family: var(--font-retro);
+  font-size: 1.15rem;
+  line-height: 1.25;
+  white-space: normal;
+  width: max-content;
+  max-width: 250px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 99999;
+}
+
+[data-tooltip]::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--pixel-black) transparent transparent transparent;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  z-index: 99999;
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip positioned below (for top bar and navbar elements) */
+[data-tooltip-pos="bottom"]::after {
+  bottom: auto;
+  top: calc(100% + 8px);
+  transform: translateX(-50%) translateY(-4px);
+}
+
+[data-tooltip-pos="bottom"]::before {
+  bottom: auto;
+  top: calc(100% + 2px);
+  border-color: transparent transparent var(--pixel-black) transparent;
+}
+
+[data-tooltip-pos="bottom"]:hover::after {
+  transform: translateX(-50%) translateY(0);
+}
+
 .pixel-stat-card {
   position: relative;
-  cursor: help;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .pixel-stat-card:hover {
   transform: translateY(-2px);
   box-shadow: 6px 6px 0px var(--pixel-black) !important;
-}
-
-.pixel-card-tooltip {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--pixel-white);
-  border: 2px solid var(--pixel-black);
-  box-shadow: 3px 3px 0px var(--pixel-black);
-  padding: 0.45rem 0.75rem;
-  font-family: var(--font-retro);
-  font-size: 1.15rem;
-  line-height: 1.25;
-  color: var(--pixel-black);
-  width: max-content;
-  max-width: 250px;
-  text-align: center;
-  z-index: 1000;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-}
-
-.pixel-card-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: var(--pixel-black) transparent transparent transparent;
-}
-
-.pixel-stat-card:hover .pixel-card-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-2px);
-}
-
-.pixel-help-badge {
-  font-family: var(--font-pixel);
-  font-size: 0.5rem;
-  padding: 0.1rem 0.35rem;
-  border: 1px solid var(--pixel-black);
-  background-color: var(--sage-light);
-  color: var(--pixel-black);
-  cursor: help;
 }
 
 /* Pixel Coin & Cash Animations */

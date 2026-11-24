@@ -12,8 +12,7 @@ export default function EmotionTag({ emotion }) {
   return (
     <span
       className={`pixel-badge ${item.pixelClass}`}
-      title={item.tooltip}
-      style={{ cursor: 'help' }}
+      data-tooltip={item.tooltip}
     >
       {item.label}
     </span>
