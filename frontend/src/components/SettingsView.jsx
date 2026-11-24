@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // user settings for hourly wage and available balance
-export default function SettingsView({ settings, onSave, onAddXp }) {
+export default function SettingsView({ settings, onSave, onResetDefaults, onAddXp }) {
   const [wage, setWage] = useState('600.00');
   const [currency, setCurrency] = useState('₹');
   const [balance, setBalance] = useState('50000.00');
@@ -143,19 +143,19 @@ export default function SettingsView({ settings, onSave, onAddXp }) {
               className="btn-pixel btn-pixel-primary px-4"
               disabled={isSaving}
             >
-              {isSaving ? 'SAVING...' : 'SAVE & FORGE STATS'}
+              {isSaving ? 'SAVING...' : 'SAVE SETTINGS'}
             </button>
           </div>
         </form>
       </div>
 
       {/* Benchmark Reference Table */}
-      <div className="pixel-box p-3 p-md-4">
-        <h6 className="pixel-font mb-1" style={{ color: 'var(--olive)' }}>
+      <div className="pixel-box p-3 p-md-4 mb-4">
+        <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
           LIFE-HOUR EXCHANGE RATES
         </h6>
-        <div className="mb-3" style={{ fontSize: '1rem', color: 'var(--olive-light)' }}>
-          At your current forge rate of <strong>{currency}{numericWage.toFixed(0)}/hour</strong>:
+        <div className="mb-3" style={{ fontSize: '1.15rem', color: 'var(--pixel-black)' }}>
+          At your current wage rate of <strong>{currency}{numericWage.toFixed(0)}/hour</strong>:
         </div>
 
         <div className="table-responsive">
@@ -192,6 +192,25 @@ export default function SettingsView({ settings, onSave, onAddXp }) {
           </table>
         </div>
       </div>
+
+      {/* Fresh Start / Reset Data */}
+      {onResetDefaults && (
+        <div className="pixel-box p-3 p-md-4">
+          <h6 className="pixel-font mb-1 text-danger" style={{ fontSize: '0.72rem' }}>
+            FRESH START / RESET ALL DATA
+          </h6>
+          <div className="mb-3 text-secondary" style={{ fontSize: '1rem' }}>
+            Wipe all logged expenses and subscriptions, and reset your starting balance back to default.
+          </div>
+          <button
+            type="button"
+            className="btn-pixel btn-pixel-danger"
+            onClick={onResetDefaults}
+          >
+            RESET ALL TO DEFAULT (CLEAN SLATE)
+          </button>
+        </div>
+      )}
     </div>
   );
 }

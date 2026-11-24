@@ -196,13 +196,15 @@ export default function SubscriptionsView({
       {/* Grid of Subscription Item Cards */}
       {subscriptions.length === 0 ? (
         <div className="pixel-box text-center py-5 text-secondary">
-          <p className="mb-3">No recurring services in your inventory yet.</p>
+          <p className="mb-3" style={{ fontSize: '1.15rem' }}>
+            No recurring services tracked yet. Add your subscriptions to monitor monthly costs and rate them!
+          </p>
           <button
             type="button"
-            className="btn-pixel btn-pixel-secondary"
+            className="btn-pixel btn-pixel-primary"
             onClick={() => handleOpenModal(null)}
           >
-            ADD FIRST SUBSCRIPTION
+            + ADD YOUR FIRST SUBSCRIPTION
           </button>
         </div>
       ) : (

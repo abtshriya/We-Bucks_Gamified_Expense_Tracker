@@ -45,6 +45,12 @@ export function updateSettings(data) {
   });
 }
 
+export function resetDefaults() {
+  return request('/settings/reset/', {
+    method: 'POST',
+  });
+}
+
 // dashboard summary stats
 export function getDashboardSummary() {
   return request('/dashboard/summary/');

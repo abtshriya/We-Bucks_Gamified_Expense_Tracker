@@ -221,13 +221,17 @@ export default function ExpensesView({
       <div className="pixel-box p-0 overflow-hidden">
         {filteredExpenses.length === 0 ? (
           <div className="text-center py-5 text-secondary">
-            <p className="mb-2">No expenses found matching the selected filters.</p>
+            <p className="mb-2" style={{ fontSize: '1.15rem' }}>
+              {expenses.length === 0
+                ? "Welcome to your Expense Ledger! You haven't logged any purchases yet."
+                : 'No expenses found matching the selected filters.'}
+            </p>
             <button
               type="button"
-              className="btn-pixel btn-pixel-secondary"
+              className="btn-pixel btn-pixel-primary"
               onClick={() => handleOpenModal(null)}
             >
-              LOG AN EXPENSE
+              + LOG YOUR FIRST EXPENSE
             </button>
           </div>
         ) : (

@@ -3,7 +3,7 @@ import logo from '../assets/logo.png';
 import { PixelCoin } from './PixelCoinBurst';
 
 // top navigation and player level bar
-export default function Navbar({ activeTab, setActiveTab, settings, summary, xp = 350, level = 3 }) {
+export default function Navbar({ activeTab, setActiveTab, settings, summary, xp = 0, level = 1 }) {
   const wage = parseFloat(settings?.net_hourly_wage || 600).toFixed(0);
   const currency = settings?.currency_symbol || '₹';
   const availableBal = summary?.available_balance !== undefined

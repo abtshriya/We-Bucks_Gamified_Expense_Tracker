@@ -40,15 +40,15 @@ export default function AlienBot({
 
     switch (activeTab) {
       case 'dashboard':
-        return 'All green, Commander! Check your Spendable Balance vault above. Where to next?';
+        return 'All green, Commander! Check your Treasury Balance vault above. Where to next?';
       case 'expenses':
-        return 'Logging expenses gives you +50 XP! Remember: pause before you tap buy.';
+        return 'Every expense logged tracks the real hours of work it cost you. Where to next?';
       case 'subscriptions':
-        return 'Psst! Check the cursed items alert! Slaying unused subscriptions saves real cash.';
+        return 'Check your recurring subscriptions! Cancelling unused services saves real cash.';
       case 'settings':
         return 'Tuning your hourly wage updates all life-hours across the entire galaxy!';
       default:
-        return 'I am Zog, your budget co-pilot! Click any button below to teleport!';
+        return 'I am Zog, your budget co-pilot! Welcome to We-Bucks! Click any button below to navigate.';
     }
   };
 

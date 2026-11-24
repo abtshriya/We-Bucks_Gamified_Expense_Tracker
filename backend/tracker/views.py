@@ -34,6 +34,26 @@ class SettingsView(APIView):
         return self.put(request)
 
 
+class ResetDefaultsView(APIView):
+    # reset all tracker data to clean default starting state
+    def post(self, request):
+        Expense.objects.all().delete()
+        SubscriptionRating.objects.all().delete()
+        Subscription.objects.all().delete()
+
+        profile = UserProfile.get_settings()
+        profile.net_hourly_wage = Decimal('600.00')
+        profile.currency_symbol = '₹'
+        profile.available_balance = Decimal('50000.00')
+        profile.save()
+
+        serializer = UserProfileSerializer(profile)
+        return Response({
+            'message': 'Successfully reset all data to default clean state.',
+            'settings': serializer.data
+        }, status=status.HTTP_200_OK)
+
+
 class ExpenseViewSet(viewsets.ModelViewSet):
     # crud actions for expenses
     queryset = Expense.objects.all()

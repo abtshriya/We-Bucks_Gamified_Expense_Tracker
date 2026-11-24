@@ -9,6 +9,7 @@ import PixelCoinBurst from './components/PixelCoinBurst';
 import {
   getSettings,
   updateSettings,
+  resetDefaults,
   getExpenses,
   createExpense,
   updateExpense,
@@ -31,10 +32,10 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // player xp tracked in local storage
+  // player xp tracked in local storage (starts clean at 0 for new user)
   const [xp, setXp] = useState(() => {
     const saved = localStorage.getItem('we_bucks_xp');
-    return saved ? parseInt(saved, 10) : 250;
+    return saved ? parseInt(saved, 10) : 0;
   });
   const [xpToast, setXpToast] = useState(null);
 
@@ -144,6 +145,16 @@ export default function App() {
     triggerCoinBurst('+50 XP · FORGED!');
   };
 
+  const handleResetDefaults = async () => {
+    if (window.confirm('Reset all expenses, subscriptions, and balance back to clean starting defaults?')) {
+      await resetDefaults();
+      localStorage.removeItem('we_bucks_xp');
+      setXp(0);
+      await loadData();
+      triggerCoinBurst('APP RESET TO CLEAN SLATE!');
+    }
+  };
+
   return (
     <div className="min-vh-100 d-flex flex-column" style={{ backgroundColor: 'var(--pixel-bg)' }}>
       {/* xp toast alert */}
@@ -239,6 +250,7 @@ export default function App() {
               <SettingsView
                 settings={settings}
                 onSave={handleUpdateSettings}
+                onResetDefaults={handleResetDefaults}
                 onAddXp={handleAddXp}
               />
             )}
