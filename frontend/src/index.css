@@ -1,0 +1,399 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* ============================================================
+   WE-BUCKS: PIXEL GAMIFIED EXPENSE TRACKER THEME
+   Palette: Sage Green, Olive Green, Black, White
+   ============================================================ */
+:root {
+  --sage-light: #C2D4C5;
+  --sage: #8BA890;
+  --sage-dark: #638268;
+  --olive-light: #526B4E;
+  --olive: #3D5038;
+  --olive-dark: #253323;
+
+  --pixel-black: #0E140F;
+  --pixel-white: #FFFFFF;
+  --pixel-bg: #EEF4EF;
+  --card-bg: #FFFFFF;
+
+  --pixel-red: #C54238;
+  --pixel-red-bg: #FDEDEB;
+  --pixel-gold: #D4A034;
+  --pixel-gold-bg: #FAF5E8;
+  
+  --font-pixel: 'Press Start 2P', 'Courier New', monospace;
+  --font-retro: 'VT323', 'Courier New', monospace;
+}
+
+* {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+body {
+  margin: 0;
+  background-color: var(--pixel-bg);
+  color: var(--pixel-black);
+  font-family: var(--font-retro);
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  background-image: 
+    linear-gradient(rgba(139, 168, 144, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 168, 144, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Headings in 8-bit Font */
+h1, h2, h3, h4, h5, h6, .pixel-font {
+  font-family: var(--font-pixel);
+  letter-spacing: -0.02em;
+  color: var(--pixel-black);
+  line-height: 1.5;
+}
+
+h4 { font-size: 1rem; }
+h5 { font-size: 0.85rem; }
+h6 { font-size: 0.72rem; }
+
+/* Pixel Box Container */
+.pixel-box {
+  background-color: var(--card-bg);
+  border: 3px solid var(--pixel-black);
+  box-shadow: 4px 4px 0px var(--pixel-black);
+  padding: 1rem;
+  border-radius: 0 !important;
+  position: relative;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.pixel-box-olive {
+  background-color: var(--olive);
+  color: var(--pixel-white);
+  border: 3px solid var(--pixel-black);
+  box-shadow: 4px 4px 0px var(--pixel-black);
+}
+
+.pixel-box-sage {
+  background-color: var(--sage-light);
+  color: var(--pixel-black);
+  border: 3px solid var(--pixel-black);
+  box-shadow: 4px 4px 0px var(--pixel-black);
+}
+
+.pixel-box-danger {
+  background-color: var(--pixel-red-bg);
+  border: 3px solid var(--pixel-red);
+  box-shadow: 4px 4px 0px var(--pixel-black);
+}
+
+/* Buttons with 3D Pixel Press Feedback */
+.btn-pixel {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0 !important;
+  border: 2px solid var(--pixel-black);
+  box-shadow: 3px 3px 0px var(--pixel-black);
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+
+.btn-pixel:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--pixel-black);
+}
+
+.btn-pixel:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--pixel-black);
+}
+
+.btn-pixel-primary {
+  background-color: var(--olive);
+  color: var(--pixel-white) !important;
+}
+.btn-pixel-primary:hover {
+  background-color: var(--olive-dark);
+}
+
+.btn-pixel-secondary {
+  background-color: var(--sage);
+  color: var(--pixel-black) !important;
+}
+.btn-pixel-secondary:hover {
+  background-color: var(--sage-light);
+}
+
+.btn-pixel-danger {
+  background-color: var(--pixel-red);
+  color: var(--pixel-white) !important;
+}
+.btn-pixel-danger:hover {
+  background-color: #A0342C;
+}
+
+.btn-pixel-light {
+  background-color: var(--pixel-white);
+  color: var(--pixel-black) !important;
+}
+.btn-pixel-light:hover {
+  background-color: var(--sage-soft);
+}
+
+/* Form Controls */
+.form-control, .form-select {
+  font-family: var(--font-retro);
+  font-size: 1.25rem;
+  border-radius: 0 !important;
+  border: 2px solid var(--pixel-black);
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.06);
+  padding: 0.4rem 0.65rem;
+  background-color: var(--pixel-white);
+  color: var(--pixel-black);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--olive);
+  outline: none;
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.1), 0 0 0 2px var(--sage);
+}
+
+/* Retro HP/XP Progress Bars */
+.pixel-bar-container {
+  height: 18px;
+  background-color: #2F3931;
+  border: 2px solid var(--pixel-black);
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.pixel-bar-fill {
+  height: 100%;
+  background-color: var(--sage);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--sage) 0px,
+    var(--sage) 8px,
+    var(--olive-light) 8px,
+    var(--olive-light) 10px
+  );
+  transition: width 0.3s ease;
+}
+
+.pixel-bar-fill-xp {
+  background-color: var(--pixel-gold);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--pixel-gold) 0px,
+    var(--pixel-gold) 8px,
+    #B58422 8px,
+    #B58422 10px
+  );
+}
+
+/* Pixel Badge */
+.pixel-badge {
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid var(--pixel-black);
+  box-shadow: 2px 2px 0px var(--pixel-black);
+  border-radius: 0;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+/* Pixel Time-to-Earn Badge */
+.time-pill-pixel {
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.55rem;
+  background-color: var(--sage-soft);
+  border: 2px solid var(--pixel-black);
+  box-shadow: 2px 2px 0px var(--pixel-black);
+}
+
+.time-pill-pixel .work-hrs {
+  color: var(--olive);
+  font-weight: bold;
+}
+
+/* Emotion Badges Pixel */
+.pixel-tag-stressed { background-color: #F8DED8; color: #872E24; }
+.pixel-tag-celebrating { background-color: #F8EFD4; color: #826315; }
+.pixel-tag-bored { background-color: #DDE5EC; color: #354B5E; }
+.pixel-tag-hungry { background-color: #F5E1CE; color: #8C4E1F; }
+.pixel-tag-peer_pressured { background-color: #EBDCF2; color: #623A78; }
+.pixel-tag-content { background-color: var(--sage-light); color: var(--olive-dark); }
+.pixel-tag-impulsive { background-color: #F8D5DB; color: #852B3C; }
+
+/* Table Pixel Styling */
+.table-pixel {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-retro);
+  font-size: 1.15rem;
+}
+
+.table-pixel th {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  background-color: var(--olive);
+  color: var(--pixel-white);
+  padding: 0.65rem 0.85rem;
+  border-bottom: 2px solid var(--pixel-black);
+  border-right: 1px solid var(--pixel-black);
+}
+
+.table-pixel td {
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid #D5E0D7;
+  border-right: 1px solid #D5E0D7;
+  background-color: var(--pixel-white);
+}
+
+.table-pixel tr:nth-child(even) td {
+  background-color: #F7FAF8;
+}
+
+.table-pixel tr:hover td {
+  background-color: var(--sage-soft);
+}
+
+/* Quest / Achievement Badge */
+.quest-item {
+  border: 2px solid var(--pixel-black);
+  box-shadow: 2px 2px 0px var(--pixel-black);
+  background-color: var(--pixel-white);
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.quest-item.completed {
+  background-color: var(--sage-soft);
+  border-color: var(--olive);
+}
+
+/* Pixel Slider */
+.pixel-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to right, #C54238 0%, #D4A034 50%, #475B42 100%);
+  border: 2px solid var(--pixel-black);
+  outline: none;
+  box-shadow: 2px 2px 0px var(--pixel-black);
+}
+
+.pixel-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 24px;
+  background: var(--pixel-white);
+  border: 2px solid var(--pixel-black);
+  box-shadow: 2px 2px 0px var(--pixel-black);
+  cursor: pointer;
+}
+
+/* Pixel Modal Backdrop */
+.pixel-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(14, 20, 15, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 1rem;
+}
+
+.pixel-modal-window {
+  background-color: var(--pixel-white);
+  border: 4px solid var(--pixel-black);
+  box-shadow: 6px 6px 0px var(--pixel-black);
+  width: 100%;
+  max-width: 500px;
+  padding: 1.5rem;
+}
+
+
+/* ============================================================
+   PIXEL STAT CARD TOOLTIPS (Simple Humanized Explanations)
+   ============================================================ */
+.pixel-stat-card {
+  position: relative;
+  cursor: help;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.pixel-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px var(--pixel-black) !important;
+}
+
+.pixel-card-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--pixel-white);
+  border: 2px solid var(--pixel-black);
+  box-shadow: 3px 3px 0px var(--pixel-black);
+  padding: 0.45rem 0.75rem;
+  font-family: var(--font-retro);
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: var(--pixel-black);
+  width: max-content;
+  max-width: 250px;
+  text-align: center;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.pixel-card-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--pixel-black) transparent transparent transparent;
+}
+
+.pixel-stat-card:hover .pixel-card-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.pixel-help-badge {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--pixel-black);
+  background-color: var(--sage-light);
+  color: var(--pixel-black);
+  cursor: help;
+}

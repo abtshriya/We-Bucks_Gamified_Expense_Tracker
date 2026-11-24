@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Production build
+frontend/dist/
+dist/
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+db.sqlite3
+.venv/
+venv/
+ENV/
+
+# Environment and secrets
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
