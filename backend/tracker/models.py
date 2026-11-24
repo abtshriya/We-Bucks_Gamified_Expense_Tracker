@@ -5,7 +5,6 @@ from django.utils import timezone
 
 
 class UserProfile(models.Model):
-    # user profile: name, income sources, hourly rate, currency symbol, and bank balance
     user_name = models.CharField(max_length=80, default="Saver", blank=True)
     monthly_salary = models.DecimalField(
         max_digits=12,
@@ -44,7 +43,6 @@ class UserProfile(models.Model):
 
     @classmethod
     def get_settings(cls):
-        # singleton profile record
         profile, _ = cls.objects.get_or_create(id=1)
         return profile
 
@@ -53,7 +51,6 @@ class UserProfile(models.Model):
 
 
 class Expense(models.Model):
-    # expense entry with emotional trigger
     EMOTION_CHOICES = [
         ('stressed', 'Stressed'),
         ('celebrating', 'Celebrating'),
@@ -90,7 +87,6 @@ class Expense(models.Model):
         ordering = ['-date', '-created_at']
 
     def calculate_hours_worked(self, hourly_wage=None):
-        # convert spend to hours of work
         if hourly_wage is None or hourly_wage <= 0:
             profile = UserProfile.get_settings()
             hourly_wage = profile.net_hourly_wage
@@ -104,7 +100,6 @@ class Expense(models.Model):
 
 
 class Subscription(models.Model):
-    # recurring monthly or yearly subscription
     BILLING_CYCLE_CHOICES = [
         ('monthly', 'Monthly'),
         ('yearly', 'Yearly'),
@@ -126,7 +121,6 @@ class Subscription(models.Model):
         ordering = ['-created_at']
 
     def get_rating_status(self):
-        # check if rated under 4 for 2 consecutive months
         ratings = list(self.ratings.order_by('-rating_month'))
         consecutive_low = 0
         for rating in ratings:
@@ -152,7 +146,6 @@ class Subscription(models.Model):
 
 
 class SubscriptionRating(models.Model):
-    # monthly 1-10 regret / value rating
     subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE, related_name='ratings')
     rating_month = models.CharField(max_length=7)  # YYYY-MM
     value_score = models.PositiveSmallIntegerField(

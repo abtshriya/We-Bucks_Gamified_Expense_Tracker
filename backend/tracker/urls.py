@@ -1,4 +1,3 @@
-# tracker api url routes
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import SettingsView, ResetDefaultsView, ExpenseViewSet, SubscriptionViewSet, DashboardSummaryView

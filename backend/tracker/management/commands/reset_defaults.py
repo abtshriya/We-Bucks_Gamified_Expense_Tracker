@@ -7,14 +7,11 @@ class Command(BaseCommand):
     help = 'Resets all tracker data to clean default starting state for a new user'
 
     def handle(self, *args, **options):
-        # 1. Clear all expenses
         exp_count = Expense.objects.all().delete()[0]
 
-        # 2. Clear all subscription ratings and subscriptions
         rating_count = SubscriptionRating.objects.all().delete()[0]
         sub_count = Subscription.objects.all().delete()[0]
 
-        # 3. Reset user settings to fresh defaults
         profile = UserProfile.get_settings()
         profile.user_name = "Saver"
         profile.monthly_salary = Decimal('0.00')

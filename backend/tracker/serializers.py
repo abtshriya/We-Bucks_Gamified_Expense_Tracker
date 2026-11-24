@@ -4,7 +4,6 @@ from .models import UserProfile, Expense, Subscription, SubscriptionRating
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    # serializer for user profile, income sources, hourly wage and balance
     total_monthly_income = serializers.SerializerMethodField()
 
     class Meta:
@@ -47,7 +46,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
-    # expense serializer with computed hours to earn
     date = serializers.DateField(required=False, default=timezone.localdate)
     hours_to_earn = serializers.SerializerMethodField()
     category_display = serializers.CharField(source='get_category_display', read_only=True)
@@ -71,14 +69,12 @@ class ExpenseSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'created_at', 'hours_to_earn', 'category_display', 'emotional_state_display']
 
     def get_hours_to_earn(self, obj):
-        # calculate life-hours from amount and hourly rate
         profile = self.context.get('user_profile')
         hourly_wage = profile.net_hourly_wage if profile else None
         return obj.calculate_hours_worked(hourly_wage)
 
 
 class SubscriptionRatingSerializer(serializers.ModelSerializer):
-    # monthly rating entry (YYYY-MM)
     class Meta:
         model = SubscriptionRating
         fields = ['id', 'subscription', 'rating_month', 'value_score', 'notes', 'created_at']
@@ -98,7 +94,6 @@ class SubscriptionRatingSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
-    # subscription serializer with computed cancellation flag
     start_date = serializers.DateField(required=False, default=timezone.localdate)
     ratings = SubscriptionRatingSerializer(many=True, read_only=True)
     hours_to_earn = serializers.SerializerMethodField()

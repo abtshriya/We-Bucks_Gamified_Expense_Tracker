@@ -16,7 +16,6 @@ from .serializers import (
 
 
 class SettingsView(APIView):
-    # get and update user settings (hourly wage, balance, currency)
     def get(self, request):
         profile = UserProfile.get_settings()
         serializer = UserProfileSerializer(profile)
@@ -35,7 +34,6 @@ class SettingsView(APIView):
 
 
 class ResetDefaultsView(APIView):
-    # reset all tracker data to clean default starting state
     def post(self, request):
         Expense.objects.all().delete()
         SubscriptionRating.objects.all().delete()
@@ -58,7 +56,6 @@ class ResetDefaultsView(APIView):
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
-    # crud actions for expenses
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
 
@@ -68,7 +65,6 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         return context
 
     def get_queryset(self):
-        # support query filters
         qs = Expense.objects.all()
         emotion = self.request.query_params.get('emotion')
         category = self.request.query_params.get('category')
@@ -90,14 +86,12 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        # dynamically deduct new expense from user's available treasury balance
         expense = serializer.save()
         profile = UserProfile.get_settings()
         profile.available_balance = max(Decimal('0.00'), profile.available_balance - expense.amount)
         profile.save(update_fields=['available_balance'])
 
     def perform_update(self, serializer):
-        # adjust available balance by price difference
         old_amount = self.get_object().amount
         expense = serializer.save()
         diff = expense.amount - old_amount
@@ -106,7 +100,6 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         profile.save(update_fields=['available_balance'])
 
     def perform_destroy(self, instance):
-        # restore available balance when expense is deleted
         profile = UserProfile.get_settings()
         profile.available_balance += instance.amount
         profile.save(update_fields=['available_balance'])
@@ -114,7 +107,6 @@ class ExpenseViewSet(viewsets.ModelViewSet):
 
 
 class SubscriptionViewSet(viewsets.ModelViewSet):
-    # recurring subscription items
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
@@ -124,7 +116,6 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
         return context
 
     def perform_create(self, serializer):
-        # dynamically deduct initial active subscription payment from available balance
         sub = serializer.save()
         if sub.is_active:
             profile = UserProfile.get_settings()
@@ -132,7 +123,6 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
             profile.save(update_fields=['available_balance'])
 
     def perform_destroy(self, instance):
-        # restore available balance if active subscription is deleted
         if instance.is_active:
             profile = UserProfile.get_settings()
             profile.available_balance += instance.amount
@@ -141,7 +131,6 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'], url_path='rate')
     def rate(self, request, pk=None):
-        # save or update a monthly 1-10 rating
         subscription = self.get_object()
         rating_month = request.data.get('rating_month')
         value_score = request.data.get('value_score')
@@ -177,7 +166,6 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
 
 
 class DashboardSummaryView(APIView):
-    # combines totals, vault balance, emotions and cursed subs
     def get(self, request):
         profile = UserProfile.get_settings()
         hourly_wage = float(profile.net_hourly_wage)
@@ -185,7 +173,6 @@ class DashboardSummaryView(APIView):
         now = timezone.localtime(timezone.now())
         current_month_str = now.strftime('%Y-%m')
 
-        # total and monthly spend
         all_expenses = Expense.objects.all()
         month_expenses = all_expenses.filter(date__year=now.year, date__month=now.month)
 
@@ -195,7 +182,6 @@ class DashboardSummaryView(APIView):
         total_hours = round(total_spend / hourly_wage, 2) if hourly_wage > 0 else 0.0
         month_hours = round(month_spend / hourly_wage, 2) if hourly_wage > 0 else 0.0
 
-        # group expenses by emotional trigger
         emotion_dict = dict(Expense.EMOTION_CHOICES)
         emotion_totals = (
             all_expenses.values('emotional_state')
@@ -219,7 +205,6 @@ class DashboardSummaryView(APIView):
                 'count': entry['count']
             })
 
-        # breakdown by category
         category_dict = dict(Expense.CATEGORY_CHOICES)
         category_totals = (
             all_expenses.values('category')
@@ -236,7 +221,6 @@ class DashboardSummaryView(APIView):
             for entry in category_totals
         ]
 
-        # check active subscriptions and low rating flags
         active_subscriptions = Subscription.objects.filter(is_active=True)
         total_monthly_recurring = 0.0
         flagged_for_cancellation = []
@@ -263,7 +247,6 @@ class DashboardSummaryView(APIView):
                     'reason': f"Rated below 4 for 2 consecutive months ({scores_str})"
                 })
 
-        # treasury vault calculations
         available_balance = float(profile.available_balance)
         yet_to_pay = round(total_monthly_recurring, 2)
         spendable_balance = round(available_balance - yet_to_pay, 2)

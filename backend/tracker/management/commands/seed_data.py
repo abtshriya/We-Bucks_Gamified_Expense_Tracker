@@ -89,7 +89,6 @@ class Command(BaseCommand):
         for exp in expenses_data:
             Expense.objects.create(**exp)
 
-        # 1. Underutilized Gym Pass (flagged: 2/10 and 3/10 for 2 consecutive months)
         cult = Subscription.objects.create(
             name='Cult.fit Elite Pass',
             amount=Decimal('1499.00'),
@@ -111,7 +110,6 @@ class Command(BaseCommand):
             notes='Still paying ₹1,499 with minimal attendance, cancel or pause.'
         )
 
-        # 2. Regularly used music streaming
         spotify = Subscription.objects.create(
             name='Spotify Premium Individual',
             amount=Decimal('119.00'),
@@ -133,7 +131,6 @@ class Command(BaseCommand):
             notes='Indispensable'
         )
 
-        # 3. Cloud storage
         Subscription.objects.create(
             name='Google One 100GB',
             amount=Decimal('130.00'),
