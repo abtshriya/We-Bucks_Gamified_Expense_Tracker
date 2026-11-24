@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import RegretSlider from './RegretSlider';
 
-// recurring subscriptions view and monthly regret ratings
 export default function SubscriptionsView({
   subscriptions = [],
   settings,
@@ -113,7 +112,6 @@ export default function SubscriptionsView({
 
   return (
     <div className="container py-4">
-      {/* Header */}
       <div className="page-header-card d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
           <h4 className="page-title">
@@ -142,7 +140,6 @@ export default function SubscriptionsView({
         </div>
       </div>
 
-      {/* Summary Pixel Cards */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-md-4">
           <div className="pixel-box">
@@ -193,7 +190,6 @@ export default function SubscriptionsView({
         </div>
       </div>
 
-      {/* Grid of Subscription Item Cards */}
       {subscriptions.length === 0 ? (
         <div className="pixel-box text-center py-5 text-secondary">
           <p className="mb-3" style={{ fontSize: '1.15rem' }}>
@@ -218,7 +214,6 @@ export default function SubscriptionsView({
                 <div
                   className={`pixel-box h-100 ${isFlagged ? 'pixel-box-danger' : ''}`}
                 >
-                  {/* Aggressive Cursed Warning Banner */}
                   {isFlagged && (
                     <div
                       className="p-2 border border-2 border-danger mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2"
@@ -243,7 +238,6 @@ export default function SubscriptionsView({
                     </div>
                   )}
 
-                  {/* Header */}
                   <div className="d-flex justify-content-between align-items-start mb-2">
                     <div>
                       <div className="d-flex align-items-center gap-2">
@@ -271,7 +265,6 @@ export default function SubscriptionsView({
                     </div>
                   </div>
 
-                  {/* Rating History */}
                   <div className="my-2 border-top border-bottom border-1 border-dark py-1">
                     <span className="pixel-font me-2" style={{ fontSize: '0.55rem' }}>
                       HISTORY:
@@ -303,7 +296,6 @@ export default function SubscriptionsView({
                     )}
                   </div>
 
-                  {/* Value vs Regret Slider */}
                   <div className="pt-2">
                     <RegretSlider
                       subscriptionId={sub.id}
@@ -315,7 +307,6 @@ export default function SubscriptionsView({
                     />
                   </div>
 
-                  {/* Actions */}
                   <div className="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-2 border-dark">
                     <button
                       type="button"
@@ -352,7 +343,6 @@ export default function SubscriptionsView({
         </div>
       )}
 
-      {/* Modal */}
       {isModalOpen && (
         <div className="pixel-modal-backdrop" onClick={handleCloseModal}>
           <div className="pixel-modal-window" onClick={(e) => e.stopPropagation()}>

@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../assets/logo.png';
 import { PixelCoin } from './PixelCoinBurst';
 
-// top navigation and player level bar
 export default function Navbar({ activeTab, setActiveTab, settings, summary, xp = 0, level = 1 }) {
   const wage = parseFloat(settings?.net_hourly_wage || 600).toFixed(0);
   const currency = settings?.currency_symbol || '₹';
@@ -23,7 +22,6 @@ export default function Navbar({ activeTab, setActiveTab, settings, summary, xp 
   return (
     <header className="bg-white border-bottom py-2 sticky-top" style={{ borderColor: 'var(--pixel-black)', borderWidth: '3px' }}>
       <div className="container d-flex flex-wrap align-items-center justify-content-between gap-2">
-        {/* app logo and title */}
         <div
           className="d-flex align-items-center gap-2"
           style={{ cursor: 'pointer' }}
@@ -44,7 +42,6 @@ export default function Navbar({ activeTab, setActiveTab, settings, summary, xp 
           </div>
         </div>
 
-        {/* navigation buttons */}
         <nav className="d-flex align-items-center gap-2 my-1 my-md-0">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.key;
@@ -62,9 +59,7 @@ export default function Navbar({ activeTab, setActiveTab, settings, summary, xp 
           })}
         </nav>
 
-        {/* dynamic balance, player level and hourly rate shortcut */}
         <div className="d-flex align-items-center gap-2">
-          {/* Live Dynamic Available Balance Pill */}
           <button
             type="button"
             className="btn-pixel btn-pixel-light d-flex align-items-center gap-1"

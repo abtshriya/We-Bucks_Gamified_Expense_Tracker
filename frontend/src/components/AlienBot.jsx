@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// pixel alien companion that helps navigate and reacts to impulse spending
 export default function AlienBot({
   activeTab,
   setActiveTab,
@@ -9,13 +8,10 @@ export default function AlienBot({
   settings,
   currency = '₹',
 }) {
-  // toggle speech bubble
   const [isOpen, setIsOpen] = useState(true);
 
-  // user display name
   const displayName = settings?.user_name || 'Saver';
 
-  // check if recent spend or top boss is an impulse purchase
   const latestExpense = expenses && expenses.length > 0 ? expenses[0] : null;
   const topEmotion = summary?.emotional_breakdown?.[0]?.emotion;
 
@@ -30,10 +26,8 @@ export default function AlienBot({
     topEmotion === 'bored' ||
     topEmotion === 'peer_pressured';
 
-  // turns angry red on unwanted expenses
   const isAngry = isLatestUnwanted || isTopBossUnwanted;
 
-  // page-specific quick instructions from Zog
   const getInstructions = () => {
     if (isAngry) {
       return {
@@ -121,7 +115,6 @@ export default function AlienBot({
 
   const info = getInstructions();
 
-  // theme colors: angry red vs friendly green
   const alienMainColor = isAngry ? '#E63946' : '#588157';
   const alienAccentColor = isAngry ? '#A61C26' : '#3A5A40';
   const alienEyeColor = isAngry ? '#FFE3E3' : '#FFFFFF';
@@ -139,7 +132,6 @@ export default function AlienBot({
         alignItems: 'flex-end',
       }}
     >
-      {/* dialogue bubble */}
       {isOpen && (
         <div
           className="pixel-box mb-2 p-3"
@@ -151,7 +143,6 @@ export default function AlienBot({
             boxShadow: isAngry ? '4px 4px 0px #A61C26' : '4px 4px 0px #0E140F',
           }}
         >
-          {/* status bar */}
           <div className="d-flex justify-content-between align-items-center border-bottom border-2 border-dark pb-1 mb-2">
             <div className="d-flex align-items-center gap-1">
               <span
@@ -176,7 +167,6 @@ export default function AlienBot({
             </button>
           </div>
 
-          {/* Section Title */}
           <div
             className="pixel-font mb-1"
             style={{
@@ -187,7 +177,6 @@ export default function AlienBot({
             {info.title}
           </div>
 
-          {/* Intro text */}
           <p
             className="mb-2"
             style={{
@@ -200,7 +189,6 @@ export default function AlienBot({
             {info.mainText}
           </p>
 
-          {/* Page-Specific Quick Instructions */}
           <div className="border-top border-2 border-dark pt-2">
             <div
               className="pixel-font text-muted mb-1"
@@ -227,7 +215,6 @@ export default function AlienBot({
         </div>
       )}
 
-      {/* clickable pixel alien avatar */}
       <div
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -244,30 +231,25 @@ export default function AlienBot({
         }}
         data-tooltip={isOpen ? 'Click to minimize Zog' : 'Click to ask Zog for tips'}
       >
-        {/* 16x16 pixel alien sprite */}
         <svg
           width="44"
           height="44"
           viewBox="0 0 16 16"
           style={{ shapeRendering: 'crispEdges', display: 'block' }}
         >
-          {/* antenna stalks */}
           <rect x="3" y="1" width="2" height="2" fill={isAngry ? '#FF0055' : '#88D49E'} />
           <rect x="11" y="1" width="2" height="2" fill={isAngry ? '#FF0055' : '#88D49E'} />
           <rect x="4" y="3" width="1" height="2" fill={alienAccentColor} />
           <rect x="11" y="3" width="1" height="2" fill={alienAccentColor} />
 
-          {/* head & ears */}
           <rect x="2" y="5" width="12" height="7" fill={alienMainColor} />
           <rect x="1" y="6" width="1" height="4" fill={alienAccentColor} />
           <rect x="14" y="6" width="1" height="4" fill={alienAccentColor} />
           <rect x="3" y="5" width="10" height="1" fill={alienAccentColor} />
 
-          {/* eyes */}
           <rect x="4" y="7" width="3" height="3" fill={alienEyeColor} />
           <rect x="9" y="7" width="3" height="3" fill={alienEyeColor} />
 
-          {/* pupils & brows */}
           {isAngry ? (
             <>
               <rect x="4" y="6" width="3" height="1" fill="#780000" />
@@ -284,7 +266,6 @@ export default function AlienBot({
             </>
           )}
 
-          {/* mouth */}
           {isAngry ? (
             <>
               <rect x="6" y="11" width="4" height="1" fill="#FFFFFF" />
@@ -298,14 +279,12 @@ export default function AlienBot({
             </>
           )}
 
-          {/* feet */}
           <rect x="4" y="12" width="8" height="2" fill={alienAccentColor} />
           <rect x="2" y="14" width="3" height="2" fill={alienMainColor} />
           <rect x="7" y="14" width="2" height="2" fill={alienMainColor} />
           <rect x="11" y="14" width="3" height="2" fill={alienMainColor} />
         </svg>
 
-        {/* badge label */}
         <div className="d-none d-sm-block">
           <div
             className="pixel-font"

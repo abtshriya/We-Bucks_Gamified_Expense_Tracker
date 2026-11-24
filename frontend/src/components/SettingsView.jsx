@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// user settings for profile, monthly salary, other incomes, hourly wage and balance
 export default function SettingsView({ settings, onSave, onResetDefaults, onAddXp }) {
   const [userName, setUserName] = useState('Saver');
   const [salary, setSalary] = useState('0.00');
@@ -33,7 +32,6 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
       alert('Please enter a monthly salary or other income amount first.');
       return;
     }
-    // standard 160 working hours per month (40h/week * 4 weeks)
     const calculatedHourly = (totalMonthlyIncome / 160).toFixed(2);
     setWage(calculatedHourly);
   };
@@ -91,13 +89,11 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
 
       <div className="pixel-box p-3 p-md-4 mb-4">
         <form onSubmit={handleSubmit}>
-          {/* SECTION 1: USER PROFILE & INCOME SOURCES */}
           <div className="border-bottom border-2 border-dark pb-3 mb-3">
             <h6 className="pixel-font mb-3" style={{ color: 'var(--pixel-black)' }}>
               1. USER PROFILE &amp; MONTHLY INFLOWS
             </h6>
 
-            {/* User Name */}
             <div className="mb-3">
               <label className="pixel-font small d-block mb-1" style={{ fontSize: '0.62rem' }}>
                 YOUR NAME / DISPLAY NAME
@@ -115,7 +111,6 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
               </div>
             </div>
 
-            {/* Income Streams Row */}
             <div className="row g-3 mb-2">
               <div className="col-12 col-md-6">
                 <label className="pixel-font small d-block mb-1" style={{ fontSize: '0.62rem' }}>
@@ -166,7 +161,6 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
               </div>
             </div>
 
-            {/* Inflow Summary & Auto-calc */}
             <div className="p-2 px-3 border border-2 border-dark mt-3 d-flex flex-wrap justify-content-between align-items-center gap-2" style={{ backgroundColor: 'var(--sage-soft)' }}>
               <div>
                 <span className="pixel-font" style={{ fontSize: '0.58rem' }}>TOTAL MONTHLY INFLOW:</span>
@@ -186,7 +180,6 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
             </div>
           </div>
 
-          {/* SECTION 2: HOURLY RATE & TREASURY */}
           <h6 className="pixel-font mb-3" style={{ color: 'var(--pixel-black)' }}>
             2. HOURLY RATE &amp; TREASURY SETTINGS
           </h6>
@@ -271,7 +264,6 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
         </form>
       </div>
 
-      {/* Benchmark Reference Table */}
       <div className="pixel-box p-3 p-md-4 mb-4">
         <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
           LIFE-HOUR EXCHANGE RATES
@@ -315,7 +307,6 @@ export default function SettingsView({ settings, onSave, onResetDefaults, onAddX
         </div>
       </div>
 
-      {/* Fresh Start / Reset Data */}
       {onResetDefaults && (
         <div className="pixel-box p-3 p-md-4">
           <h6 className="pixel-font mb-1 text-danger" style={{ fontSize: '0.72rem' }}>

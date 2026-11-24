@@ -3,7 +3,6 @@ import TimeToEarnBadge from './TimeToEarnBadge';
 import EmotionTag from './EmotionTag';
 import { PixelCoin, PixelCash } from './PixelCoinBurst';
 
-// main dashboard view with vault, stats and boss damage
 export default function DashboardView({
   summary,
   recentExpenses = [],
@@ -18,11 +17,9 @@ export default function DashboardView({
 
   const [calcAmount, setCalcAmount] = useState('1500');
 
-  // Balance edit modal state
   const [isEditingBalance, setIsEditingBalance] = useState(false);
   const [inputBalance, setInputBalance] = useState('');
 
-  // Balances
   const availableBalance = summary?.available_balance !== undefined
     ? parseFloat(summary.available_balance)
     : (parseFloat(settings?.available_balance) || 50000);
@@ -73,7 +70,6 @@ export default function DashboardView({
 
   return (
     <div className="container py-4">
-      {/* TREASURY BALANCE VAULT: Available Balance, Yet to Pay, Spendable Balance */}
       <div className="pixel-box mb-4">
         <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom border-2 border-dark pb-2 mb-3">
           <div className="d-flex align-items-center gap-2">
@@ -97,7 +93,6 @@ export default function DashboardView({
           </button>
         </div>
 
-        {/* Monthly Inflow Banner (Salary & Other Incomes) */}
         {(parseFloat(settings?.monthly_salary) > 0 || parseFloat(settings?.other_income) > 0) && (
           <div className="p-2 px-3 border border-2 border-dark mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2" style={{ backgroundColor: 'var(--pixel-gold-bg)' }}>
             <div className="d-flex align-items-center gap-2">
@@ -113,7 +108,6 @@ export default function DashboardView({
         )}
 
         <div className="row g-3 align-items-stretch">
-          {/* 1. AVAILABLE BALANCE */}
           <div className="col-12 col-md-4">
             <div
               className="p-3 border border-2 border-dark h-100 pixel-stat-card"
@@ -135,7 +129,6 @@ export default function DashboardView({
             </div>
           </div>
 
-          {/* 2. YET TO PAY */}
           <div className="col-12 col-md-4">
             <div
               className="p-3 border border-2 border-dark h-100 pixel-stat-card"
@@ -156,7 +149,6 @@ export default function DashboardView({
             </div>
           </div>
 
-          {/* 3. SPENDABLE BALANCE (Available Balance - Yet to Pay) */}
           <div className="col-12 col-md-4">
             <div
               className="pixel-box-olive p-3 h-100 pixel-stat-card"
@@ -183,7 +175,6 @@ export default function DashboardView({
         </div>
       </div>
 
-      {/* Modal for Updating Available Balance */}
       {isEditingBalance && (
         <div className="pixel-modal-backdrop" onClick={() => setIsEditingBalance(false)}>
           <div className="pixel-modal-window" onClick={(e) => e.stopPropagation()}>
@@ -240,7 +231,6 @@ export default function DashboardView({
           </div>
         </div>
       )}
-      {/* Gamified Quest Alert: Low-Value / Cursed Subscriptions */}
       {flaggedSubs.length > 0 && (
         <div className="pixel-box-danger p-3 mb-4">
           <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -298,9 +288,7 @@ export default function DashboardView({
         </div>
       )}
 
-      {/* Top 4 Pixel Stat HUD Cards */}
       <div className="row g-3 mb-4">
-        {/* 1. TREASURY SPENT */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div
             className="pixel-box pixel-stat-card h-100"
@@ -320,7 +308,6 @@ export default function DashboardView({
           </div>
         </div>
 
-        {/* 2. LIFE HOURS LOST */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div
             className="pixel-box pixel-stat-card h-100"
@@ -341,7 +328,6 @@ export default function DashboardView({
           </div>
         </div>
 
-        {/* 3. TOP SPEND BOSS */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div
             className="pixel-box pixel-stat-card h-100"
@@ -365,7 +351,6 @@ export default function DashboardView({
           </div>
         </div>
 
-        {/* 4. CURSED SERVICES */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div
             className="pixel-box pixel-stat-card h-100"
@@ -392,9 +377,7 @@ export default function DashboardView({
         </div>
       </div>
 
-      {/* Row 2: Boss Battle (Emotional Spending) & Work Hours Simulator */}
       <div className="row g-4 mb-4">
-        {/* Emotional Spending Breakdown as Boss Damage Bars */}
         <div className="col-lg-7">
           <div className="pixel-box h-100">
             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -438,7 +421,6 @@ export default function DashboardView({
                       </div>
                     </div>
 
-                    {/* Retro HP Bar */}
                     <div className="pixel-bar-container">
                       <div
                         className="pixel-bar-fill"
@@ -456,7 +438,6 @@ export default function DashboardView({
           </div>
         </div>
 
-        {/* Work Hours Simulator */}
         <div className="col-lg-5">
           <div className="pixel-box h-100">
             <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
@@ -523,9 +504,7 @@ export default function DashboardView({
         </div>
       </div>
 
-      {/* Row 3: Active Quests & Recent Ledger */}
       <div className="row g-4 mb-4">
-        {/* Active Checklist Widget */}
         <div className="col-lg-4">
           <div className="pixel-box h-100">
             <h6 className="pixel-font mb-3" style={{ color: 'var(--pixel-black)' }}>
@@ -567,7 +546,6 @@ export default function DashboardView({
           </div>
         </div>
 
-        {/* Recent Expenses Ledger */}
         <div className="col-lg-8">
           <div className="pixel-box h-100">
             <div className="d-flex justify-content-between align-items-center mb-3">

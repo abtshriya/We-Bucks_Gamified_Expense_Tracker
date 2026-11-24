@@ -13,7 +13,6 @@ const CATEGORIES = [
   { value: 'other', label: 'Other' },
 ];
 
-// expense ledger view and entry modal
 export default function ExpensesView({
   expenses = [],
   settings,
@@ -126,7 +125,6 @@ export default function ExpensesView({
 
   return (
     <div className="container py-4">
-      {/* Header */}
       <div className="page-header-card d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
           <h4 className="page-title">
@@ -155,7 +153,6 @@ export default function ExpensesView({
         </div>
       </div>
 
-      {/* Filter Toolbar */}
       <div className="pixel-box p-3 mb-4">
         <div className="row g-2 align-items-center">
           <div className="col-12 col-md-4">
@@ -217,7 +214,6 @@ export default function ExpensesView({
         </div>
       </div>
 
-      {/* Expenses Table */}
       <div className="pixel-box p-0 overflow-hidden">
         {filteredExpenses.length === 0 ? (
           <div className="text-center py-5 text-secondary">
@@ -301,7 +297,6 @@ export default function ExpensesView({
         )}
       </div>
 
-      {/* Pixel Modal for Create / Edit */}
       {isModalOpen && (
         <div className="pixel-modal-backdrop" onClick={handleCloseModal}>
           <div className="pixel-modal-window" onClick={(e) => e.stopPropagation()}>
@@ -365,7 +360,6 @@ export default function ExpensesView({
                 </div>
               </div>
 
-              {/* Dynamic Time-to-Earn Preview Box */}
               <div
                 className="p-2 px-3 border border-2 border-dark mb-3 d-flex align-items-center justify-content-between"
                 style={{ backgroundColor: 'var(--sage-soft)' }}
@@ -378,7 +372,6 @@ export default function ExpensesView({
                 </span>
               </div>
 
-              {/* Emotional State Selection */}
               <div className="mb-3">
                 <label className="pixel-font small d-block mb-2" style={{ fontSize: '0.6rem' }}>
                   EMOTIONAL TRIGGER

@@ -1,7 +1,6 @@
 import React from 'react';
 import { EMOTIONS } from '../constants/emotions';
 
-// pixel tag for emotional triggers
 export default function EmotionTag({ emotion }) {
   const item = EMOTIONS[emotion] || {
     label: emotion || 'Other',

@@ -22,7 +22,6 @@ import {
   getDashboardSummary,
 } from './api';
 
-// main application shell
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [settings, setSettings] = useState({ net_hourly_wage: 600.00, currency_symbol: '₹' });
@@ -32,14 +31,12 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // player xp tracked in local storage (starts clean at 0 for new user)
   const [xp, setXp] = useState(() => {
     const saved = localStorage.getItem('we_bucks_xp');
     return saved ? parseInt(saved, 10) : 0;
   });
   const [xpToast, setXpToast] = useState(null);
 
-  // floating coin burst animation state
   const [coinBurst, setCoinBurst] = useState({ show: false, message: '' });
 
   const triggerCoinBurst = (message) => {
@@ -49,10 +46,8 @@ export default function App() {
     }, 1500);
   };
 
-  // level up every 100 xp
   const level = Math.floor(xp / 100) + 1;
 
-  // show brief xp popup
   const handleAddXp = (amount) => {
     setXp((prev) => {
       const nextXp = prev + amount;
@@ -63,7 +58,6 @@ export default function App() {
     setTimeout(() => setXpToast(null), 2000);
   };
 
-  // pull fresh data from api
   const loadData = useCallback(async () => {
     try {
       setError(null);
@@ -90,7 +84,6 @@ export default function App() {
     loadData();
   }, [loadData]);
 
-  // expense handlers
   const handleCreateExpense = async (data) => {
     await createExpense(data);
     await loadData();
@@ -109,7 +102,6 @@ export default function App() {
     await loadData();
   };
 
-  // subscription handlers
   const handleCreateSubscription = async (data) => {
     await createSubscription(data);
     await loadData();
@@ -137,7 +129,6 @@ export default function App() {
     triggerCoinBurst('+25 XP · APPRAISED!');
   };
 
-  // user settings handler
   const handleUpdateSettings = async (data) => {
     await updateSettings(data);
     await loadData();
@@ -157,7 +148,6 @@ export default function App() {
 
   return (
     <div className="min-vh-100 d-flex flex-column" style={{ backgroundColor: 'var(--pixel-bg)' }}>
-      {/* xp toast alert */}
       {xpToast && (
         <div
           className="position-fixed top-0 end-0 m-4 pixel-box-olive p-2 px-3 z-3 animate-bounce"
@@ -169,10 +159,8 @@ export default function App() {
         </div>
       )}
 
-      {/* floating pixel coin and cash burst animation */}
       <PixelCoinBurst show={coinBurst.show} message={coinBurst.message} />
 
-      {/* top navbar with level and stats */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -258,7 +246,6 @@ export default function App() {
         )}
       </main>
 
-      {/* alien navigator companion */}
       <AlienBot
         activeTab={activeTab}
         setActiveTab={setActiveTab}

@@ -1,6 +1,5 @@
 import React from 'react';
 
-// badge showing price and life-hours worked
 export default function TimeToEarnBadge({ amount, hours, hourlyWage, currency = '₹' }) {
   const numericAmount = parseFloat(amount) || 0;
   let formattedHours = '0.0';

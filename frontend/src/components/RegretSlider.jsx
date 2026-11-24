@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// 1-10 monthly regret and value slider
 export default function RegretSlider({ subscriptionId, initialScore = 5, onSave }) {
   const currentMonth = new Date().toISOString().slice(0, 7);
   const [score, setScore] = useState(initialScore);
@@ -9,7 +8,6 @@ export default function RegretSlider({ subscriptionId, initialScore = 5, onSave 
   const [saving, setSaving] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
 
-  // Gamified Item Ranks
   const getRank = (val) => {
     if (val <= 3) return { label: 'CURSED / REGRET', color: 'var(--pixel-red)', bg: 'var(--pixel-red-bg)' };
     if (val <= 6) return { label: 'COMMON ITEM', color: 'var(--pixel-gold)', bg: 'var(--pixel-gold-bg)' };

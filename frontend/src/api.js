@@ -1,7 +1,5 @@
-// backend api helper functions
 const BASE_URL = 'http://127.0.0.1:8000/api';
 
-// generic fetch wrapper with error parsing
 async function request(endpoint, options = {}) {
   const url = `${BASE_URL}${endpoint}`;
   const config = {
@@ -21,7 +19,6 @@ async function request(endpoint, options = {}) {
     try {
       parsed = JSON.parse(errorText);
     } catch {
-      // If error is HTML (e.g. Django debug page), extract title or friendly message
       const match = errorText.match(/<title>(.*?)<\/title>/i);
       const friendlyTitle = match ? match[1].replace(/&amp;/g, '&') : null;
       parsed = { detail: friendlyTitle || `Server error (${res.status})` };
@@ -33,7 +30,6 @@ async function request(endpoint, options = {}) {
   return res.json();
 }
 
-// user settings
 export function getSettings() {
   return request('/settings/');
 }
@@ -51,12 +47,10 @@ export function resetDefaults() {
   });
 }
 
-// dashboard summary stats
 export function getDashboardSummary() {
   return request('/dashboard/summary/');
 }
 
-// expenses
 export function getExpenses(params = {}) {
   const query = new URLSearchParams();
   Object.entries(params).forEach(([k, v]) => {
@@ -88,7 +82,6 @@ export function deleteExpense(id) {
   });
 }
 
-// subscriptions
 export function getSubscriptions() {
   return request('/subscriptions/');
 }
