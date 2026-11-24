@@ -21,7 +21,10 @@ async function request(endpoint, options = {}) {
     try {
       parsed = JSON.parse(errorText);
     } catch {
-      parsed = { detail: errorText || res.statusText };
+      // If error is HTML (e.g. Django debug page), extract title or friendly message
+      const match = errorText.match(/<title>(.*?)<\/title>/i);
+      const friendlyTitle = match ? match[1].replace(/&amp;/g, '&') : null;
+      parsed = { detail: friendlyTitle || `Server error (${res.status})` };
     }
     throw new Error(parsed.detail || parsed.error || `Error ${res.status}`);
   }

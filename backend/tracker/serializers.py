@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.utils import timezone
 from .models import UserProfile, Expense, Subscription, SubscriptionRating
 
 
@@ -22,6 +23,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class ExpenseSerializer(serializers.ModelSerializer):
     # expense serializer with computed hours to earn
+    date = serializers.DateField(required=False, default=timezone.localdate)
     hours_to_earn = serializers.SerializerMethodField()
     category_display = serializers.CharField(source='get_category_display', read_only=True)
     emotional_state_display = serializers.CharField(source='get_emotional_state_display', read_only=True)
@@ -72,6 +74,7 @@ class SubscriptionRatingSerializer(serializers.ModelSerializer):
 
 class SubscriptionSerializer(serializers.ModelSerializer):
     # subscription serializer with computed cancellation flag
+    start_date = serializers.DateField(required=False, default=timezone.localdate)
     ratings = SubscriptionRatingSerializer(many=True, read_only=True)
     hours_to_earn = serializers.SerializerMethodField()
     consecutive_low_count = serializers.SerializerMethodField()

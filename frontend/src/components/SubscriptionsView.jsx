@@ -56,6 +56,7 @@ export default function SubscriptionsView({
         amount: '',
         billing_cycle: 'monthly',
         category: 'entertainment',
+        start_date: new Date().toISOString().split('T')[0],
         is_active: true,
       });
     }

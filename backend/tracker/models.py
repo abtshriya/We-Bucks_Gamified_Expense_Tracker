@@ -61,7 +61,7 @@ class Expense(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(Decimal('0.01'))]
     )
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default=timezone.localdate)
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default='dining')
     emotional_state = models.CharField(max_length=30, choices=EMOTION_CHOICES, default='content')
     description = models.TextField(blank=True, default="")
@@ -99,7 +99,7 @@ class Subscription(models.Model):
     )
     billing_cycle = models.CharField(max_length=15, choices=BILLING_CYCLE_CHOICES, default='monthly')
     category = models.CharField(max_length=30, choices=Expense.CATEGORY_CHOICES, default='entertainment')
-    start_date = models.DateField(default=timezone.now)
+    start_date = models.DateField(default=timezone.localdate)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
