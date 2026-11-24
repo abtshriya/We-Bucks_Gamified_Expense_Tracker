@@ -387,7 +387,7 @@ export default function DashboardView({
                 <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
                   EMOTIONAL SPENDING BREAKDOWN
                 </h6>
-                <div style={{ fontSize: '1.15rem', color: 'var(--pixel-black)', fontWeight: 'bold' }}>
+                <div style={{ fontSize: '1.15rem', color: 'var(--pixel-black)' }}>
                   Money and working hours spent by emotional trigger
                 </div>
               </div>
@@ -447,7 +447,7 @@ export default function DashboardView({
             <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
               TIME-TO-EARN CALCULATOR
             </h6>
-            <div className="mb-3" style={{ fontSize: '1.15rem', color: 'var(--pixel-black)', fontWeight: 'bold' }}>
+            <div className="mb-3" style={{ fontSize: '1.15rem', color: 'var(--pixel-black)' }}>
               Translate any potential purchase into hours of your working life.
             </div>
 
@@ -560,7 +560,7 @@ export default function DashboardView({
                 <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
                   RECENT EXPENSES
                 </h6>
-                <div style={{ fontSize: '1.15rem', color: 'var(--pixel-black)', fontWeight: 'bold' }}>
+                <div style={{ fontSize: '1.15rem', color: 'var(--pixel-black)' }}>
                   Latest purchases with their life-hour cost and trigger
                 </div>
               </div>

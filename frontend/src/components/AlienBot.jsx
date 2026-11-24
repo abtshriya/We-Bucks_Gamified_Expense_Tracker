@@ -254,7 +254,7 @@ export default function AlienBot({
           >
             {isAngry ? 'ZOG (MAD!)' : 'ZOG'}
           </div>
-          <div style={{ fontSize: '0.75rem', color: '#162415', fontWeight: 'bold' }}>
+          <div style={{ fontSize: '0.75rem', color: '#162415' }}>
             {isOpen ? 'Click to close' : 'Click to open'}
           </div>
         </div>
