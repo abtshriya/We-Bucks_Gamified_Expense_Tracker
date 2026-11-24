@@ -91,8 +91,8 @@ export default function SubscriptionsView({
   const handleToggleActive = async (sub) => {
     const willDeactivate = sub.is_active;
     const msg = willDeactivate
-      ? `[QUEST] Slay and cancel ${sub.name}? This will save ${currency}${sub.amount}/${sub.billing_cycle} and earn +100 XP!`
-      : `Re-equip and reactivate ${sub.name}?`;
+      ? `Cancel subscription to ${sub.name}? This will save ${currency}${sub.amount}/${sub.billing_cycle}.`
+      : `Reactivate subscription to ${sub.name}?`;
 
     if (window.confirm(msg)) {
       await onUpdateSubscription(sub.id, { is_active: !willDeactivate });
@@ -109,12 +109,12 @@ export default function SubscriptionsView({
   return (
     <div className="container py-4">
       {/* Header */}
-      <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+      <div className="page-header-card d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
-          <h4 className="pixel-font mb-1" style={{ color: 'var(--olive)' }}>
-            RECURRING INVENTORY
+          <h4 className="page-title">
+            RECURRING SUBSCRIPTIONS
           </h4>
-          <div style={{ fontSize: '1.05rem', color: 'var(--olive-light)' }}>
+          <div className="page-subtitle">
             Rate your subscriptions 1–10. If you regret paying for 2 months in a row, it's time to cancel!
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function SubscriptionsView({
           className="btn-pixel btn-pixel-primary"
           onClick={() => handleOpenModal(null)}
         >
-          + ADD SERVICE
+          + ADD SUBSCRIPTION
         </button>
       </div>
 
@@ -132,8 +132,8 @@ export default function SubscriptionsView({
       <div className="row g-3 mb-4">
         <div className="col-12 col-md-4">
           <div className="pixel-box">
-            <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--olive)' }}>
-              MONTHLY RECURRING GOLD
+            <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--pixel-black)' }}>
+              MONTHLY RECURRING COST
             </div>
             <div className="display-6 fw-bold mt-2 mb-1" style={{ fontFamily: 'var(--font-retro)' }}>
               {currency}{totalMonthlySpend.toFixed(2)}/MO
@@ -145,11 +145,11 @@ export default function SubscriptionsView({
         </div>
 
         <div className="col-12 col-md-4">
-          <div className="pixel-box" style={{ borderLeft: '8px solid var(--olive)' }}>
-            <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--olive)' }}>
+          <div className="pixel-box" style={{ borderLeft: '8px solid var(--pixel-black)' }}>
+            <div className="pixel-font" style={{ fontSize: '0.62rem', color: 'var(--pixel-black)' }}>
               MONTHLY LIFE HOURS
             </div>
-            <div className="display-6 fw-bold mt-2 mb-1" style={{ color: 'var(--olive)', fontFamily: 'var(--font-retro)' }}>
+            <div className="display-6 fw-bold mt-2 mb-1" style={{ color: 'var(--pixel-black)', fontFamily: 'var(--font-retro)' }}>
               {monthlyHours} HRS/MO
             </div>
             <div className="text-muted" style={{ fontSize: '0.95rem' }}>
@@ -160,8 +160,8 @@ export default function SubscriptionsView({
 
         <div className="col-12 col-md-4">
           <div className="pixel-box" style={{ borderLeft: flaggedSubs.length > 0 ? '8px solid var(--pixel-red)' : '' }}>
-            <div className="pixel-font" style={{ fontSize: '0.62rem', color: flaggedSubs.length > 0 ? 'var(--pixel-red)' : 'var(--olive)' }}>
-              CURSED SUBSCRIPTIONS
+            <div className="pixel-font" style={{ fontSize: '0.62rem', color: flaggedSubs.length > 0 ? 'var(--pixel-red)' : 'var(--pixel-black)' }}>
+              SUBSCRIPTIONS TO CANCEL
             </div>
             <div className={`display-6 fw-bold mt-2 mb-1 ${flaggedSubs.length > 0 ? 'text-danger' : 'text-dark'}`} style={{ fontFamily: 'var(--font-retro)' }}>
               {flaggedSubs.length}
@@ -169,10 +169,10 @@ export default function SubscriptionsView({
             <div className="text-muted" style={{ fontSize: '0.95rem' }}>
               {flaggedSubs.length > 0 ? (
                 <span className="text-danger fw-bold">
-                  Recover {currency}{potentialSavings.toFixed(2)}/mo (+100 XP)
+                  Save {currency}{potentialSavings.toFixed(2)}/mo by cancelling
                 </span>
               ) : (
-                <span>Zero cursed subscriptions!</span>
+                <span>Zero low-rated subscriptions!</span>
               )}
             </div>
           </div>
@@ -423,7 +423,7 @@ export default function SubscriptionsView({
                   CANCEL
                 </button>
                 <button type="submit" className="btn-pixel btn-pixel-primary px-3">
-                  {editingSub ? 'SAVE' : '+ ADD & GET 50 XP'}
+                  {editingSub ? 'SAVE SUBSCRIPTION' : '+ ADD SUBSCRIPTION'}
                 </button>
               </div>
             </form>

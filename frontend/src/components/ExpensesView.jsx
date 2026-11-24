@@ -123,13 +123,13 @@ export default function ExpensesView({
   return (
     <div className="container py-4">
       {/* Header */}
-      <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+      <div className="page-header-card d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
-          <h4 className="pixel-font mb-1" style={{ color: 'var(--olive)' }}>
+          <h4 className="page-title">
             EXPENSE LEDGER
           </h4>
-          <div style={{ fontSize: '1.05rem', color: 'var(--olive-light)' }}>
-            Track what you buy, how you felt, and the hours of work it cost you (+50 XP).
+          <div className="page-subtitle">
+            Track what you buy, how you felt, and the hours of work it cost you.
           </div>
         </div>
 
@@ -426,7 +426,7 @@ export default function ExpensesView({
                   type="submit"
                   className="btn-pixel btn-pixel-primary px-4"
                 >
-                  {editingExpense ? 'SAVE' : '+ LOG & GET 50 XP'}
+                  {editingExpense ? 'SAVE EXPENSE' : '+ LOG EXPENSE'}
                 </button>
               </div>
             </form>

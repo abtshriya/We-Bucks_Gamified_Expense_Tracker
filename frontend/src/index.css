@@ -1,18 +1,18 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* ============================================================
-   WE-BUCKS: PIXEL GAMIFIED EXPENSE TRACKER THEME
+   WE-BUCKS: PIXEL EXPENSE TRACKER THEME
    Palette: Sage Green, Olive Green, Black, White
    ============================================================ */
 :root {
   --sage-light: #C2D4C5;
   --sage: #8BA890;
-  --sage-dark: #638268;
-  --olive-light: #526B4E;
-  --olive: #3D5038;
-  --olive-dark: #253323;
+  --sage-dark: #162415;
+  --olive-light: #162415;
+  --olive: #000000;
+  --olive-dark: #000000;
 
-  --pixel-black: #0E140F;
+  --pixel-black: #000000;
   --pixel-white: #FFFFFF;
   --pixel-bg: #8BA890;
   --sage-soft: #DDE8DF;
@@ -20,7 +20,7 @@
 
   --pixel-red: #C54238;
   --pixel-red-bg: #FDEDEB;
-  --pixel-gold: #D4A034;
+  --pixel-gold: #B8860B;
   --pixel-gold-bg: #FAF5E8;
   
   --font-pixel: 'Press Start 2P', 'Courier New', monospace;
@@ -38,12 +38,15 @@ body {
   background-color: var(--pixel-bg);
   color: var(--pixel-black);
   font-family: var(--font-retro);
-  font-size: 20px;
+  font-size: 21px;
+  font-weight: 500;
   line-height: 1.4;
   letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image: 
-    linear-gradient(rgba(37, 51, 35, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 51, 35, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -53,6 +56,33 @@ h1, h2, h3, h4, h5, h6, .pixel-font {
   letter-spacing: -0.02em;
   color: var(--pixel-black);
   line-height: 1.5;
+}
+
+/* Page Header Card for guaranteed high-contrast, crystal-clear readability */
+.page-header-card {
+  background-color: var(--card-bg);
+  border: 3px solid var(--pixel-black);
+  box-shadow: 4px 4px 0px var(--pixel-black);
+  padding: 1.15rem 1.35rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-family: var(--font-pixel);
+  font-size: 1.15rem;
+  color: #000000 !important;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.page-subtitle {
+  font-family: var(--font-retro);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #000000 !important;
+  line-height: 1.3;
+  margin: 0;
 }
 
 h4 { font-size: 1rem; }

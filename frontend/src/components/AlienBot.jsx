@@ -248,13 +248,13 @@ export default function AlienBot({
             className="pixel-font"
             style={{
               fontSize: '0.55rem',
-              color: isAngry ? '#E63946' : 'var(--olive)',
+              color: isAngry ? '#E63946' : 'var(--pixel-black)',
               lineHeight: 1,
             }}
           >
             {isAngry ? 'ZOG (MAD!)' : 'ZOG'}
           </div>
-          <div style={{ fontSize: '0.75rem', color: '#666' }}>
+          <div style={{ fontSize: '0.75rem', color: '#162415', fontWeight: 'bold' }}>
             {isOpen ? 'Click to close' : 'Click to open'}
           </div>
         </div>

@@ -52,7 +52,7 @@ export default function DashboardView({
   const topEmotion = emotionalBreakdown.length > 0 ? emotionalBreakdown[0] : null;
 
   const handleQuickCancel = (subId, subName) => {
-    if (window.confirm(`[QUEST] Slay & cancel ${subName}? You will recover ${currency}${subsSummary.potential_monthly_savings}/month and gain +100 XP!`)) {
+    if (window.confirm(`Cancel subscription to ${subName}? You will save ${currency}${subsSummary.potential_monthly_savings}/month.`)) {
       onCancelSubscription(subId);
       if (onAddXp) onAddXp(100);
     }
@@ -384,11 +384,11 @@ export default function DashboardView({
           <div className="pixel-box h-100">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <div>
-                <h6 className="pixel-font mb-1" style={{ color: 'var(--olive)' }}>
-                  EMOTIONAL SPEND BOSSES
+                <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
+                  EMOTIONAL SPENDING BREAKDOWN
                 </h6>
-                <div style={{ fontSize: '1rem', color: 'var(--olive-light)' }}>
-                  Damage inflicted on your coin pouch by psychological trigger
+                <div style={{ fontSize: '1.15rem', color: 'var(--pixel-black)', fontWeight: 'bold' }}>
+                  Money and working hours spent by emotional trigger
                 </div>
               </div>
               <button
@@ -396,7 +396,7 @@ export default function DashboardView({
                 className="btn-pixel btn-pixel-secondary"
                 onClick={() => onNavigate('expenses')}
               >
-                LEDGER
+                VIEW ALL
               </button>
             </div>
 
@@ -411,14 +411,14 @@ export default function DashboardView({
                     <div className="d-flex justify-content-between align-items-center mb-1">
                       <div className="d-flex align-items-center gap-2">
                         <EmotionTag emotion={item.emotion} />
-                        <span style={{ fontSize: '1.05rem' }}>({item.count} hits)</span>
+                        <span style={{ fontSize: '1.05rem', color: '#000', fontWeight: 'bold' }}>({item.count} entries)</span>
                       </div>
                       <div className="text-end">
-                        <span className="fw-bold me-2" style={{ fontSize: '1.2rem' }}>
+                        <span className="fw-bold me-2" style={{ fontSize: '1.2rem', color: '#000' }}>
                           {currency}{item.total.toFixed(2)}
                         </span>
-                        <span className="pixel-badge" style={{ backgroundColor: 'var(--olive)', color: '#fff' }}>
-                          {item.hours}h LOST
+                        <span className="pixel-badge" style={{ backgroundColor: 'var(--pixel-black)', color: '#fff' }}>
+                          {item.hours}h SPENT
                         </span>
                       </div>
                     </div>
@@ -430,9 +430,9 @@ export default function DashboardView({
                         style={{ width: `${item.percentage}%` }}
                       />
                     </div>
-                    <div className="d-flex justify-content-between align-items-center mt-1 text-secondary" style={{ fontSize: '0.95rem' }}>
+                    <div className="d-flex justify-content-between align-items-center mt-1" style={{ fontSize: '1rem', color: 'var(--pixel-black)', fontWeight: 'bold' }}>
                       <span>Trigger: {item.label}</span>
-                      <span>{item.percentage}% of total damage</span>
+                      <span>{item.percentage}% of emotional spending</span>
                     </div>
                   </div>
                 ))}
@@ -444,10 +444,10 @@ export default function DashboardView({
         {/* Work Hours Simulator */}
         <div className="col-lg-5">
           <div className="pixel-box h-100">
-            <h6 className="pixel-font mb-1" style={{ color: 'var(--olive)' }}>
-              TIME-TO-EARN SIMULATOR
+            <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
+              TIME-TO-EARN CALCULATOR
             </h6>
-            <div className="mb-3" style={{ fontSize: '1rem', color: 'var(--olive-light)' }}>
+            <div className="mb-3" style={{ fontSize: '1.15rem', color: 'var(--pixel-black)', fontWeight: 'bold' }}>
               Translate any potential purchase into hours of your working life.
             </div>
 
@@ -510,39 +510,43 @@ export default function DashboardView({
 
       {/* Row 3: Active Quests & Recent Ledger */}
       <div className="row g-4 mb-4">
-        {/* Active Quests Widget */}
+        {/* Active Checklist Widget */}
         <div className="col-lg-4">
           <div className="pixel-box h-100">
-            <h6 className="pixel-font mb-3" style={{ color: 'var(--olive)' }}>
-              QUEST BOARD
+            <h6 className="pixel-font mb-3" style={{ color: 'var(--pixel-black)' }}>
+              DAILY CHECKLIST
             </h6>
             <div className="d-flex flex-column gap-2">
               <div className="quest-item completed">
                 <div>
-                  <div className="pixel-font" style={{ fontSize: '0.62rem' }}>✓ SET TAKE-HOME RATE</div>
+                  <div className="pixel-font" style={{ fontSize: '0.62rem', color: '#000' }}>✓ SET TAKE-HOME RATE</div>
                   <div className="text-muted" style={{ fontSize: '0.9rem' }}>Configured hourly rate ({currency}{wage}/h)</div>
                 </div>
-                <span className="pixel-badge" style={{ backgroundColor: 'var(--pixel-gold-bg)', color: '#826315' }}>+50 XP</span>
+                <span className="pixel-badge" style={{ backgroundColor: 'var(--sage-soft)', color: '#000' }}>ACTIVE</span>
               </div>
 
               <div className={`quest-item ${recentExpenses.length > 0 ? 'completed' : ''}`}>
                 <div>
-                  <div className="pixel-font" style={{ fontSize: '0.62rem' }}>
-                    {recentExpenses.length > 0 ? '✓' : '○'} FIRST LEDGER
+                  <div className="pixel-font" style={{ fontSize: '0.62rem', color: '#000' }}>
+                    {recentExpenses.length > 0 ? '✓' : '○'} LOG AN EXPENSE
                   </div>
-                  <div className="text-muted" style={{ fontSize: '0.9rem' }}>Log an expense with emotion tag</div>
+                  <div className="text-muted" style={{ fontSize: '0.9rem' }}>Record a spend with emotion tag</div>
                 </div>
-                <span className="pixel-badge" style={{ backgroundColor: 'var(--pixel-gold-bg)', color: '#826315' }}>+50 XP</span>
+                <span className="pixel-badge" style={{ backgroundColor: recentExpenses.length > 0 ? 'var(--sage-soft)' : 'var(--pixel-gold-bg)', color: '#000' }}>
+                  {recentExpenses.length > 0 ? 'LOGGED' : 'PENDING'}
+                </span>
               </div>
 
-              <div className={`quest-item ${flaggedSubs.length > 0 ? '' : 'completed'}`}>
+              <div className={`quest-item ${flaggedSubs.length === 0 ? 'completed' : ''}`}>
                 <div>
-                  <div className="pixel-font" style={{ fontSize: '0.62rem' }}>
-                    {flaggedSubs.length === 0 ? '✓' : '○'} SUBSCRIPTION SLAYER
+                  <div className="pixel-font" style={{ fontSize: '0.62rem', color: '#000' }}>
+                    {flaggedSubs.length === 0 ? '✓' : '○'} REVIEW SUBSCRIPTIONS
                   </div>
-                  <div className="text-muted" style={{ fontSize: '0.9rem' }}>Cancel low-value subscriptions</div>
+                  <div className="text-muted" style={{ fontSize: '0.9rem' }}>Review low-value recurring charges</div>
                 </div>
-                <span className="pixel-badge" style={{ backgroundColor: 'var(--pixel-gold-bg)', color: '#826315' }}>+100 XP</span>
+                <span className="pixel-badge" style={{ backgroundColor: flaggedSubs.length === 0 ? 'var(--sage-soft)' : 'var(--pixel-red-bg)', color: flaggedSubs.length === 0 ? '#000' : 'var(--pixel-red)' }}>
+                  {flaggedSubs.length === 0 ? 'CLEAN' : 'ACTION'}
+                </span>
               </div>
             </div>
           </div>
@@ -553,10 +557,10 @@ export default function DashboardView({
           <div className="pixel-box h-100">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <div>
-                <h6 className="pixel-font mb-1" style={{ color: 'var(--olive)' }}>
-                  RECENT LEDGER LOGS
+                <h6 className="pixel-font mb-1" style={{ color: 'var(--pixel-black)' }}>
+                  RECENT EXPENSES
                 </h6>
-                <div style={{ fontSize: '1rem', color: 'var(--olive-light)' }}>
+                <div style={{ fontSize: '1.15rem', color: 'var(--pixel-black)', fontWeight: 'bold' }}>
                   Latest purchases with their life-hour cost and trigger
                 </div>
               </div>

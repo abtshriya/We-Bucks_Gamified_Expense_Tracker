@@ -52,18 +52,18 @@ export default function SettingsView({ settings, onSave, onAddXp }) {
 
   return (
     <div className="container py-4" style={{ maxWidth: '720px' }}>
-      <div className="mb-4">
-        <h4 className="pixel-font mb-1" style={{ color: 'var(--olive)' }}>
-          LIFE-RATE FORGE
+      <div className="page-header-card">
+        <h4 className="page-title">
+          HOURLY WAGE SETTINGS
         </h4>
-        <div style={{ fontSize: '1.05rem', color: 'var(--olive-light)' }}>
+        <div className="page-subtitle">
           Set your hourly take-home pay to see how many hours of work your purchases actually cost.
         </div>
       </div>
 
       {saved && (
         <div className="pixel-box-sage p-2 px-3 mb-3 pixel-font" style={{ fontSize: '0.65rem' }}>
-          ✓ SAVED! YOUR HOURLY RATE HAS BEEN UPDATED (+50 XP).
+          ✓ SAVED! YOUR HOURLY RATE HAS BEEN UPDATED.
         </div>
       )}
 

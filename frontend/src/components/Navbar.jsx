@@ -32,10 +32,10 @@ export default function Navbar({ activeTab, setActiveTab, settings, xp = 350, le
             style={{ width: '42px', height: '42px', objectFit: 'contain' }}
           />
           <div>
-            <div className="pixel-font" style={{ fontSize: '1.05rem', color: 'var(--olive)' }}>
+            <div className="pixel-font" style={{ fontSize: '1.05rem', color: 'var(--pixel-black)' }}>
               WE-BUCKS
             </div>
-            <div className="pixel-font" style={{ fontSize: '0.52rem', color: 'var(--sage-dark)' }}>
+            <div className="pixel-font" style={{ fontSize: '0.52rem', color: 'var(--pixel-black)' }}>
               YOUR PERSONAL EXPENSE TRACKER
             </div>
           </div>
@@ -62,7 +62,7 @@ export default function Navbar({ activeTab, setActiveTab, settings, xp = 350, le
         {/* player level and hourly rate shortcut */}
         <div className="d-flex align-items-center gap-3">
           <div className="d-none d-lg-block text-end">
-            <div className="pixel-font d-flex align-items-center justify-content-end gap-1" style={{ fontSize: '0.58rem', color: 'var(--olive)' }}>
+            <div className="pixel-font d-flex align-items-center justify-content-end gap-1" style={{ fontSize: '0.58rem', color: 'var(--pixel-black)' }}>
               <span className="pixel-coin-spin"><PixelCoin size={12} /></span>
               <span>LVL {level} SAVER · {xpCurrent}/100 XP</span>
             </div>

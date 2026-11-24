@@ -253,7 +253,7 @@ export default function App() {
       />
 
       <footer className="py-3 text-center border-top bg-white mt-auto border-3 border-dark" style={{ fontSize: '0.82rem' }}>
-        <div className="container pixel-font" style={{ fontSize: '0.58rem', color: 'var(--olive)' }}>
+        <div className="container pixel-font" style={{ fontSize: '0.58rem', color: 'var(--pixel-black)' }}>
           WE-BUCKS &bull; YOUR PERSONAL EXPENSE TRACKER &bull; © 2026
         </div>
       </footer>
