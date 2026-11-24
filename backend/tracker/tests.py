@@ -96,6 +96,31 @@ class ExpenseAPITests(APITestCase):
         for item in res.data:
             self.assertEqual(item['emotional_state'], 'hungry')
 
+    def test_dynamic_balance_update_on_expense_lifecycle(self):
+        # balance decreases on expense create, and restores on delete
+        initial_balance = UserProfile.get_settings().available_balance
+        payload = {
+            'title': 'Dinner Out',
+            'amount': '150.00',
+            'date': '2026-11-20',
+            'category': 'dining',
+            'emotional_state': 'content'
+        }
+        res = self.client.post(self.url, data=payload, format='json')
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+
+        updated_balance = UserProfile.get_settings().available_balance
+        self.assertEqual(updated_balance, initial_balance - Decimal('150.00'))
+
+        # delete expense and verify restoration
+        expense_id = res.data['id']
+        del_url = reverse('expense-detail', kwargs={'pk': expense_id})
+        del_res = self.client.delete(del_url)
+        self.assertEqual(del_res.status_code, status.HTTP_204_NO_CONTENT)
+
+        restored_balance = UserProfile.get_settings().available_balance
+        self.assertEqual(restored_balance, initial_balance)
+
 
 class SubscriptionRegretAPITests(APITestCase):
     # test subscription regret rating rules

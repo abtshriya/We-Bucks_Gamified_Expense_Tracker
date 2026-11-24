@@ -66,6 +66,29 @@ class ExpenseViewSet(viewsets.ModelViewSet):
 
         return qs
 
+    def perform_create(self, serializer):
+        # dynamically deduct new expense from user's available treasury balance
+        expense = serializer.save()
+        profile = UserProfile.get_settings()
+        profile.available_balance = max(Decimal('0.00'), profile.available_balance - expense.amount)
+        profile.save(update_fields=['available_balance'])
+
+    def perform_update(self, serializer):
+        # adjust available balance by price difference
+        old_amount = self.get_object().amount
+        expense = serializer.save()
+        diff = expense.amount - old_amount
+        profile = UserProfile.get_settings()
+        profile.available_balance = max(Decimal('0.00'), profile.available_balance - diff)
+        profile.save(update_fields=['available_balance'])
+
+    def perform_destroy(self, instance):
+        # restore available balance when expense is deleted
+        profile = UserProfile.get_settings()
+        profile.available_balance += instance.amount
+        profile.save(update_fields=['available_balance'])
+        instance.delete()
+
 
 class SubscriptionViewSet(viewsets.ModelViewSet):
     # recurring subscription items
@@ -76,6 +99,22 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context['user_profile'] = UserProfile.get_settings()
         return context
+
+    def perform_create(self, serializer):
+        # dynamically deduct initial active subscription payment from available balance
+        sub = serializer.save()
+        if sub.is_active:
+            profile = UserProfile.get_settings()
+            profile.available_balance = max(Decimal('0.00'), profile.available_balance - sub.amount)
+            profile.save(update_fields=['available_balance'])
+
+    def perform_destroy(self, instance):
+        # restore available balance if active subscription is deleted
+        if instance.is_active:
+            profile = UserProfile.get_settings()
+            profile.available_balance += instance.amount
+            profile.save(update_fields=['available_balance'])
+        instance.delete()
 
     @action(detail=True, methods=['post'], url_path='rate')
     def rate(self, request, pk=None):

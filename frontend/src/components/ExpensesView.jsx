@@ -17,12 +17,16 @@ const CATEGORIES = [
 export default function ExpensesView({
   expenses = [],
   settings,
+  summary,
   onCreateExpense,
   onUpdateExpense,
   onDeleteExpense,
   onAddXp,
 }) {
   const currency = settings?.currency_symbol || '₹';
+  const availableBal = summary?.available_balance !== undefined
+    ? parseFloat(summary.available_balance)
+    : (parseFloat(settings?.available_balance) || 50000);
   const wage = parseFloat(settings?.net_hourly_wage || 600);
 
   const [selectedEmotion, setSelectedEmotion] = useState('');
@@ -133,13 +137,22 @@ export default function ExpensesView({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="btn-pixel btn-pixel-primary"
-          onClick={() => handleOpenModal(null)}
-        >
-          + LOG EXPENSE
-        </button>
+        <div className="d-flex align-items-center gap-2">
+          <div
+            className="pixel-badge d-none d-sm-inline-block"
+            style={{ backgroundColor: 'var(--sage-soft)', color: '#000', fontSize: '0.65rem', padding: '0.45rem 0.65rem' }}
+            data-tooltip="Live liquid funds remaining in your treasury."
+          >
+            AVAILABLE BAL: {currency}{availableBal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+          <button
+            type="button"
+            className="btn-pixel btn-pixel-primary"
+            onClick={() => handleOpenModal(null)}
+          >
+            + LOG EXPENSE
+          </button>
+        </div>
       </div>
 
       {/* Filter Toolbar */}

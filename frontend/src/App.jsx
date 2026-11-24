@@ -166,6 +166,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         settings={settings}
+        summary={summary}
         xp={xp}
         level={level}
       />
@@ -213,6 +214,7 @@ export default function App() {
               <ExpensesView
                 expenses={expenses}
                 settings={settings}
+                summary={summary}
                 onCreateExpense={handleCreateExpense}
                 onUpdateExpense={handleUpdateExpense}
                 onDeleteExpense={handleDeleteExpense}
@@ -224,6 +226,7 @@ export default function App() {
               <SubscriptionsView
                 subscriptions={subscriptions}
                 settings={settings}
+                summary={summary}
                 onCreateSubscription={handleCreateSubscription}
                 onUpdateSubscription={handleUpdateSubscription}
                 onDeleteSubscription={handleDeleteSubscription}
