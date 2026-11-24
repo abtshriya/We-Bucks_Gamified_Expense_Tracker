@@ -1,4 +1,5 @@
-# We-Bucks
+# We-Bucks: Gamified Expense Tracker
+CSA3426 Project Work
 
 Personal finance and expense tracking application built with Django REST Framework and React.
 
